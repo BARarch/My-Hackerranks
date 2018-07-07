@@ -9,8 +9,26 @@ def less_than(elm, name, score):
         return (name < get_name(elm))
     else:
         return (score < get_score(elm))
-            
+    
+def greater_than(elm, name, score):
+    if score == get_score(elm):
+        return (name > get_name(elm))
+    else:
+        return (score > get_score(elm))
+    
+def second_lowest_score(studends):
+    lowest = get_score(students[0])
+    student = 1
+    while get_score(students[student]) == lowest and student < len(students):
+        student += 1
         
+    if student < len(students):
+        return get_score(studends[student])
+    else:
+        return None
+    
+        
+
 if __name__ == '__main__':
     students = []
     place = 0
@@ -18,30 +36,24 @@ if __name__ == '__main__':
         done = False
         name = input()
         score = float(input())
-        print("{} {}".format(name, str(score)))
         place = 0
-        ## find a place
+
         if students:
             while place < len(students):
-                print(place)
-                print(less_than(students[place], name, place))
-                if less_than(students[place], name, place):
-                    print('less than')
+                if greater_than(students[place], name, score):
                     place += 1
                 else:
-                    print("inserting {} {}".format(name, str(score)))
                     students.insert(place, [name, score,])
                     done = True
                     break
                       
             if not done:
-            ## Add to the end of list
-                print("placing at the end {} {}".format(name, str(score)))
                 students.append([name, score,])
             
         else:
-            # It was emtpy
-            print("placing at the end {} {}".format(name, str(score)))
             students.append([name, score,])
             
-    print(students)
+
+    SLS = second_lowest_score(students)
+    for student in list(filter(lambda x: get_score(x) == SLS, students)):
+        print(get_name(student))
