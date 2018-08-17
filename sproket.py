@@ -52,7 +52,7 @@ def sproket_iter(n, positions, numer, lastNeg):
 			r1Denom = 3
 
 		print('First Gear: {}'.format(str([r1Numer, r1Denom])))
-		if numer <= 0:
+		if numer < r1Denom:
 			return [-1, -1]
 		else:
 			return [numer, r1Denom]	
@@ -78,7 +78,7 @@ def sproket_iter(n, positions, numer, lastNeg):
 		_numer = (get_denom(nextGear) * diff) - get_numer(nextGear)
 		_denom = get_denom(nextGear)
 
-	if _numer <= 0:
+	if _numer < _denom:
 		return [-1, -1]
 	else:
 		return [_numer, _denom]
