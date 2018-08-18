@@ -84,8 +84,13 @@ def sproket_iter(n, positions, numer, lastNeg):
 		return [_numer, _denom]
 
 def gears(positions):
-	return sproket_iter(1, positions, 0, True)
+	gearSize = sproket_iter(1, positions, 0, True)
 
+	## Factor the result
+	if (get_denom(gearSize) == 3) and ((get_numer(gearSize) % 3) == 0):
+		return [get_numer(gearSize) // 3, 1]
+	else:
+		return gearSize
 
 
 
