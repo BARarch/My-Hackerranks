@@ -85,9 +85,6 @@ class num:
 			return str([])
 		return str([self._sum, self.code])
 
-def number(_sum, code):
-	return [_sum, code]
-
 def sumset(L):
 	digits = sorted(L)
 
