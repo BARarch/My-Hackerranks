@@ -36,7 +36,10 @@ class num:
 	def __init__(self, _sum=None, code=None):
 		self._sum = _sum
 		self.code = code
-		self.mod = _sum % 3
+		if self.code:
+			self.mod = _sum % 3
+		else:
+			self.mod = None
 
 	def get_sum(self):
 		return self._sum
@@ -44,17 +47,91 @@ class num:
 	def get_code(self):
 		return self.code
 
+	def value(self):
+		if self.is_empty():
+			return 0
+		return int(self.code)
+
 	def is_empty(self):
-		return not bool(self._sum)
+		return self._sum is None
 
 	def update(self, digit):
+		digit = str(digit)
 		if self.is_empty():
 			return num(int(digit), digit) 
-		else
+		else:
 			return num(self._sum + int(digit), digit + self.code)
 
 	def __gt__(self, otherNum):
-		return int(self.code) > int(otherNum.get_code())
+		if self.is_empty():
+			return False
+		if otherNum.is_empty():
+			return True
+		if self.value() == otherNum.value():
+			return len(self.code) > len(otherNum.get_code())
+		return self.value() > otherNum.value()
+
+	def greater(self, otherNum):
+		if self > otherNum:
+			return self
+		else:
+			return otherNum
+
+	def __str__(self):
+		return self.code
+
+	def __repr__(self):
+		if self.is_empty():
+			return str([])
+		return str([self._sum, self.code])
 
 def number(_sum, code):
 	return [_sum, code]
+
+def sumset(L):
+	digits = sorted(L)
+
+	currSums = {}
+	## These are mods
+	currSums[0] = num()
+	currSums[1] = num()
+	currSums[2] = num()
+
+	print(currSums)
+
+	for d in digits:
+		newSums = {}
+		newSums[0] = num()
+		newSums[1] = num()
+		newSums[2] = num()
+		if d == 0:
+			## If the first digit is a update all mods
+			for mod in currSums:
+				newSums[mod] = currSums[mod].update(0)
+		else:
+			for mod in currSums:
+				## Update all current sums
+				## Save to a buffer
+				## Compare the sum with the same mod to the buffered number
+				## Pass on the greater one
+				exp = currSums[mod].update(d)
+				#newSums[exp.mod] = exp.greater(currSums[exp.mod])
+
+				newSums[exp.mod] = exp
+
+			for mod in currSums:
+				#print(mod)
+				currSums[mod] = currSums[mod].greater(newSums[mod])
+
+		
+		print(currSums)
+
+	return currSums[0].value()
+
+
+
+
+
+
+
+
