@@ -106,24 +106,18 @@ def sumset(L):
 		newSums[2] = num()
 		if d == 0:
 			## If the first digit is a update all mods
-			for mod in currSums:
-				newSums[mod] = currSums[mod].update(0)
+			newSums = {mod: currSums[mod].update(0) for mod in currSums}
 		else:
 			for mod in currSums:
 				## Update all current sums
 				## Save to a buffer
-				## Compare the sum with the same mod to the buffered number
-				## Pass on the greater one
 				exp = currSums[mod].update(d)
-				#newSums[exp.mod] = exp.greater(currSums[exp.mod])
-
 				newSums[exp.mod] = exp
-
-			for mod in currSums:
-				#print(mod)
-				currSums[mod] = currSums[mod].greater(newSums[mod])
-
 		
+		## Compare the sum with the same mod to the buffered number
+		## Pass on the greater one
+		currSums = {mod: currSums[mod].greater(newSums[mod]) for mod in currSums}
+		print('d = {}'.format(str(d)))
 		print(currSums)
 
 	return currSums[0].value()
