@@ -17,5 +17,44 @@
 ## focuses on optimal totals and reduces the complexity to linear
 ## in time, constant in memory
 
-def number(summ, digits):
-	return [summ, digits]
+## Potential sequences of digits are expressed as numbers that 
+## store not only the sequence of digits, sorted greatest, to 
+## samllest to ensure teh highest possible code number, but
+## also the sum of the digits
+
+## For each digit in the input, tree numbers are kept to ensure 
+## the optimal code
+
+## the largest posible code whos sum of digits has a mod 3 of 0
+## the largest posible code whos sum of digits has a mod 3 of 1
+## and
+## the largest posible code whos sum of digits has a mod 3 of 2
+
+## the digit 0 has a mod 3 of 0 1 and 2!
+
+class num:
+	def __init__(self, _sum=None, code=None):
+		self._sum = _sum
+		self.code = code
+		self.mod = _sum % 3
+
+	def get_sum(self):
+		return self._sum
+
+	def get_code(self):
+		return self.code
+
+	def is_empty(self):
+		return not bool(self._sum)
+
+	def update(self, digit):
+		if self.is_empty():
+			return num(int(digit), digit) 
+		else
+			return num(self._sum + int(digit), digit + self.code)
+
+	def __gt__(self, otherNum):
+		return int(self.code) > int(otherNum.get_code())
+
+def number(_sum, code):
+	return [_sum, code]
