@@ -13,8 +13,14 @@ da=$($d $f)
 echo "$TITLE$da.py"
 cat > "$TITLE$da.py"
 
-echo "Git Message"
-read MSG
+
+if [ -z "$2" ]; then
+  echo "Git Message"
+  read MSG
+else
+  MSG="$2"
+fi
+
 
 git add .
 git commit -a -m "$MSG"
