@@ -13,7 +13,7 @@ da=$($d $f)
 echo "$TITLE$da.py"
 cat > "$TITLE$da.py"
 
-echo"Git Message"
+echo "Git Message"
 read MSG
 
 git add .
