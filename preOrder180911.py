@@ -45,6 +45,7 @@ def preOrder(root):
         preOrder(root.left)
     if root.right:
         preOrder(root.right)
+        
 tree = BinarySearchTree()
 t = int(input())
 
