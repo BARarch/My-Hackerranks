@@ -46,13 +46,10 @@ class Node:
        // this is a node of the tree , which contains info as data, left , right
 '''
 def height(root):
-    left = -1
-    right = -1
-    if root.left:
-        left = height(root.left)
-    if root.right:
-        right = height(root.right)
-    return max((left, right)) + 1
+    if root == None:
+        return -1
+    else:
+        return max((height(root.left), height(root.right))) + 1
 
 
 tree = BinarySearchTree()
