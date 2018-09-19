@@ -45,7 +45,7 @@ from collections import deque
 
 def topView(root):
     tv = topView_h(root)
-    print(tv[0])
+    #print(tv[0])
     print(' '.join(list(map(str, tv[1]))))
     
 def topView_h(root):
@@ -64,6 +64,14 @@ def topView_h(root):
         ## Adjust the pivot one to the left
         ## -- CAREFULL HERE --
         ## IF THE PIVOT IS ZERO AND YOU DECREMENT, THERE WILL BE PROBLEMS
+        ## When the pivot is a negative number and the topview is divided
+        ## you will get elements out of place for Bottom Left
+        ## Likewise, for the other side if the left child top view
+        ## has a piviot all the way to the right and the adjustment take place
+        ## to move it one more to the right, this pivot is a key that is not on the 
+        ## list, but since the division is a range, this does not throw an 
+        ## exception and the correct results are generated
+
         # if rightTopView[0] > 0:
         rightTopView[0] -= 1
     else:
@@ -82,7 +90,7 @@ def topView_h(root):
         
     if rightTopView:
         rightTop = deque(list(rightTopView[1])[(rightTopView[0] + 1):])
-        leftBottom = deque(list(rightTopView[1])[:rightTopView[0]])
+        leftBottom = deque(list(rightTopView[1])[:rightTopView[0]]) if rightTopView[0] >= 0 else deque([])
     else:
         rightTop = None
         leftBottom = None
