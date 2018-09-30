@@ -6,34 +6,31 @@ import random
 import re
 import sys
 
-# Complete the squares function below.
-def squares(a, b):
-    n = 0
-    for i in range(b):
-        if i ** 2 >= a:
-            if i ** 2 > b:
-                return n
-            else:
-                n += 1
-    return n
+# Complete the cutTheSticks function below.
+def cutTheSticks(arr):
+    sticks = sorted(arr)
+    cuts = []
+    while sticks:
+        shortest = sticks[0]
+        keeps = []
+        cuts.append(len(sticks))
+        for i in range(1, len(sticks)):
+            if sticks[i] > shortest:
+                keeps.append(sticks[i] - shortest)
+        sticks = keeps
+    return cuts          
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
 
-    q = int(input())
+    n = int(input())
 
-    for q_itr in range(q):
-        ab = input().split()
+    arr = list(map(int, input().rstrip().split()))
 
-        a = int(ab[0])
+    result = cutTheSticks(arr)
 
-        b = int(ab[1])
-
-        result = squares(a, b)
-
-        fptr.write(str(result) + '\n')
+    fptr.write('\n'.join(map(str, result)))
+    fptr.write('\n')
 
     fptr.close()
-exit()
-
 
