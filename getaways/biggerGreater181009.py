@@ -49,6 +49,9 @@ def has_been_swaped(start, swaps):
             return True
     return False
 
+def lowest(swaps):
+    return min(swaps, key=swap_result)
+
 def compute_swaps(w, start):
     ## This is the recusive function that works for the charater
     ## at index 'start' for string 'w' and all charaters to the right of it
@@ -60,6 +63,7 @@ def compute_swaps(w, start):
 def biggerIsGreater(w):
     swaps = compute_swaps(w, len(w - 2))
     if swaps:
+        ## Execute Swaps and Return Result
         for swap in swaps:
             w = execute_swap(w, swap_a(swap), swap_b(swap))
         return w
