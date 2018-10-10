@@ -59,16 +59,52 @@ def compute_swaps(w, start):
     ## a list with a single swap
     ## a list of swaps
     ## or an empty list
+    if start < 0:
+        return []
+
+    highs = []
+    lows = []
+    base = test_swap(w, start)
+
+    ## Find First Swap
+    for b in range(start + 1, len(w)):
+        test = test_swap(w, start, b)
+        if test > base and w[start] != w[b]:
+            highs.append(compose_swap(start, b, test))
+        elif test < base:
+            lows.append(compose_swap(start, b, test))
+
+    if highs:
+        return [lowest(highs)]
+
+    ## Recursion Phase
+    swaps = compute_swaps(w, start - 1)
+    if not swaps:
+        return swaps
+
+    if has_been_swaped(start, swaps):
+        return swaps
+
+    ## Filter Lows to remove swaped characters
+    for swap in swaps:
+        lows = list(filter(low_unswaped(swap_b(swaps)), lows))
+
+    if lows:  
+        bestSwap = lowest(lows)
+        if swap_result(bestSwap) < base:
+            swaps.append(bestSwap)
+    return swaps
 
 def biggerIsGreater(w):
-    swaps = compute_swaps(w, len(w - 2))
+    swaps = compute_swaps(w, len(w) - 2)
+    #print(swaps)
     if swaps:
         ## Execute Swaps and Return Result
         for swap in swaps:
             w = execute_swap(w, swap_a(swap), swap_b(swap))
         return w
     else:
-        return 'no anwser'
+        return 'no answer'
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
