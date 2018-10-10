@@ -22,9 +22,12 @@ def test_swap(w, a, b=None):
     
 def compose_test_swap(w, a, b=None):
     if b is None:
-        return [[a, ''], test_swap(w, a)]
+        return [(a, ''), test_swap(w, a)]
     else:
-        return [[a, b], test_swap(w, a, b)]
+        return [(a, b), test_swap(w, a, b)]
+
+def compose(a, b, testResult):
+    return [(a, b), testResult]
     
 def swap_b(swap):
     return swap[0][0]
