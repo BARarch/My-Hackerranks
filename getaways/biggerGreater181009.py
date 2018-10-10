@@ -1,4 +1,4 @@
-#!/bin/python3
+'''#!/bin/python3'''
 
 import math
 import os
@@ -7,7 +7,7 @@ import re
 import sys
 
 # Complete the biggerIsGreater function below.
-def swap(w, a, b):
+def execute_swap(w, a, b):
     ## Swap Charaters and indexes a and b
     ## b is greater than a
     return w[:a] + w[b] + w[a+1:b] + w[a] + w[b+1:]
@@ -20,16 +20,16 @@ def test_swap(w, a, b=None):
     else:
         return ('a' * a) + w[b] + ('a' * (b - a - 1)) + w[a] + ('a' * (len(w) - b - 1))
     
-def compose_test_swap(w, a, b=None):
+def test_compose_swap(w, a, b=None):
     if b is None:
-        return [(a, ''), test_swap(w, a)]
+        return ((a, ''), test_swap(w, a))
     else:
-        return [(a, b), test_swap(w, a, b)]
+        return ((a, b), test_swap(w, a, b))
 
-def compose(a, b, testResult):
-    return [(a, b), testResult]
+def compose_swap(a, b, testResult):
+    return ((a, b), testResult)
     
-def swap_b(swap):
+def swap_a(swap):
     return swap[0][0]
 
 def swap_b(swap):
@@ -38,8 +38,33 @@ def swap_b(swap):
 def swap_result(swap):
     return swap[1]
 
+## This is the fitler run in a loop for the lows of an iteration
+## for each confirmed swap at this level
+def low_unswaped(swaped_b):
+    return lambda swaped_low: swap_b(swaped_low) != swaped_b
+
+def has_been_swaped(start, swaps):
+    for swap in swaps:
+        if swap_b(swap) == start:
+            return True
+    return False
+
+def compute_swaps(w, start):
+    ## This is the recusive function that works for the charater
+    ## at index 'start' for string 'w' and all charaters to the right of it
+    ## this function may return:
+    ## a list with a single swap
+    ## a list of swaps
+    ## or an empty list
+
 def biggerIsGreater(w):
-    return test_swap(w, 0, 1)
+    swaps = compute_swaps(w, len(w - 2))
+    if swaps:
+        for swap in swaps:
+            w = execute_swap(w, swap_a(swap), swap_b(swap))
+        return w
+    else:
+        return 'no anwser'
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
