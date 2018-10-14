@@ -5,6 +5,7 @@ import os
 import random
 import re
 import sys
+from datetime import datetime
 
 # Complete the biggerIsGreater function below.
 def execute_swap(w, a, b):
@@ -105,6 +106,32 @@ def biggerIsGreater(w):
         return w
     else:
         return 'no answer'
+
+def check(triesFile, answersFile):
+    startTime = datetime.now()
+    tries = open(triesFile, 'r')
+    answers = open(answersFile, 'r')
+    wrong = 0
+
+    N = int(tries.readline().rstrip())
+    for _ in range(N):
+        tri = tries.readline().rstrip()
+        ans = answers.readline().rstrip()
+        res = biggerIsGreater(tri)
+
+        if ans != res:
+            wrong += 1
+            print('Try: \n{}'.format(tri))
+            print('Expected: \n{}'.format(ans))
+            print('Result: \n{}'.format(res))
+            print(' ')
+
+    print('')
+    print('Finished Checking {} attempts in {}'.format(str(N), str(datetime.now() - startTime)))
+    print('{} Incorrect Answers'.format(str(wrong)))
+    tries.close()
+    answers.close()
+
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
