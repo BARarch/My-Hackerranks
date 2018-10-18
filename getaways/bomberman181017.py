@@ -13,7 +13,7 @@ def encode(grid):
         for c in row
             val = val << 1
             if c == 'O':
-                val += 1
+                val |= 1
     return val
 
 def decode(val, r, c):
@@ -21,7 +21,10 @@ def decode(val, r, c):
     col = 0
     row = ''
     for digit in bin(val)[2:]:
-        row += digit
+        if digit == "0":
+            row += '.'
+        elif digit == '1':
+            row += 'O'
         col += 1
         if col == c:
             grid.append(row)
@@ -30,13 +33,29 @@ def decode(val, r, c):
     return grid
 
 def full_mask(r, c):
-    pass
+    ## Need a number with r * c ones
+    return (2 ** (r * c)) - 1 
+
 
 def left_mask(r, c):
-    pass
+    ## Have c columns, need a number with c - 1 ones then one 0
+    base = ((2 ** (c - 1)) - 1) << 1
+    mask = 0
+    for _ in range(r):
+        mask << c
+        mask |= base
+    return mask
+
 
 def right_mask(r, c):
-    pass
+    ## Have c columns, need a number with c - 1 ones
+    base = ((2 ** (c - 1)) - 1)
+    mask = 0
+    for _ in range(r):
+        mask << c
+        mask |= base
+    return mask
+
 
 def make_explode(r, c):
     ## Composes the explode function exclusivly for grids
