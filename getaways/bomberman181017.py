@@ -11,7 +11,7 @@ def encode(grid):
     val = 0
     for row in grid:
         for c in row
-            val = val << 1
+            val <<= 1
             if c == 'O':
                 val |= 1
     return val
@@ -42,7 +42,7 @@ def left_mask(r, c):
     base = ((2 ** (c - 1)) - 1) << 1
     mask = 0
     for _ in range(r):
-        mask << c
+        mask <<= c
         mask |= base
     return mask
 
@@ -52,7 +52,7 @@ def right_mask(r, c):
     base = ((2 ** (c - 1)) - 1)
     mask = 0
     for _ in range(r):
-        mask << c
+        mask <<= c
         mask |= base
     return mask
 
