@@ -6,11 +6,37 @@ import random
 import re
 import sys
 
+class Test:
+    def __init__(self, file):
+        f = open(file, 'r')
+        st = list(map(int, f.readline().rstrip().split(' ')))
+        self.r = st[0]
+        self.c = st[1]
+        self.n = st[2]
+        self.grid = []
+
+        for _ in range(self.r):
+            self.grid.append(f.readline().rstrip())
+
+        f.close()
+
+    def get_grid(self):
+        return self.grid
+
+    def get_r(self):
+        return self.r
+
+    def get_c(self):
+        return self.c
+
+    def get_n(self):
+        return self.n
+
 # Complete the bomberMan function below.
 def encode(grid):
     val = 0
     for row in grid:
-        for c in row
+        for c in row:
             val <<= 1
             if c == 'O':
                 val |= 1
@@ -20,7 +46,11 @@ def decode(val, r, c):
     grid = []
     col = 0
     row = ''
-    for digit in bin(val)[2:]:
+    binVal = bin(val)[2:]
+    binVal = ('0' * ((r * c) - len(binVal))) + binVal
+    #print(binVal)
+    #print(len(binVal))
+    for digit in binVal:
         if digit == "0":
             row += '.'
         elif digit == '1':
@@ -31,6 +61,14 @@ def decode(val, r, c):
             row = ''
             col = 0
     return grid
+
+def print_grid(grid):
+    for row in grid:
+        print(row)
+
+def print_val(val, r, c):
+    for row in decode(val, r, c):
+        print(row)
 
 def full_mask(r, c):
     ## Need a number with r * c ones
