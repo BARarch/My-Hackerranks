@@ -60,11 +60,14 @@ def right_mask(r, c):
 def make_explode(r, c):
     ## Composes the explode function exclusivly for grids
     ## with r rows and c columns
-    pass
+    leftMask = left_mask(r, c)
+    rightMask = right_mask(r, c)
+    fullMask = full_mask(r, c)
+    def explodeFunc(reg):
+        b = (reg | ((reg << 1) & leftMask)) | ((reg >> 1) & rightMask)
+        return (b | ((b << c) & fullMask)) | (b >> c)
+    return explodeFunc
 
-
-def left_right(row):
-    return  row ^ ((row << 1) | 2 ^ len(row)) ^ (row >> 1)
 
 def bomberMan(n, grid):
     ## I can use big numbers, really big numbers
