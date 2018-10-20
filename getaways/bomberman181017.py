@@ -110,7 +110,29 @@ def make_explode(r, c):
 def bomberMan(n, grid):
     ## I can use big numbers, really big numbers
     ## Lets use really big numbers
-    return ["O"]
+    r = len(grid)
+    c = len(grid[0])
+    fullMask = full_mask(r, c)
+    explode = make_explode(r, c)
+    B = encode(grid)
+
+    if (n % 2) == 0:
+        return decode(fullMask, r, c)
+    if n == 0 or n == 1:
+        return grid
+
+    i = 1
+
+    while i < n:
+        A = fullMask - (B | explode(B))
+        i += 2
+        if i == n:
+            return decode(A, r, c)
+
+        B = fullMask - (A | explode(A))
+        i += 2
+        if i == n:
+            return decode(B, r, c)
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
