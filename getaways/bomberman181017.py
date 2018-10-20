@@ -127,18 +127,14 @@ def bomberMan(n, grid):
     if n == 0 or n == 1:
         return grid
 
-    i = 1
-
-    while i < n:
+    if (n % 4) == 3:
         A = fullMask - (B | explode(B))
-        i += 2
-        if i == n:
-            return decode(A, r, c)
+        return decode(A, r, c)
 
+    if (n % 4) == 1:
+        A = fullMask - (B | explode(B))
         B = fullMask - (A | explode(A))
-        i += 2
-        if i == n:
-            return decode(B, r, c)
+        return decode(B, r, c)
 
 def bomberGen(grid):
     r = len(grid)
