@@ -70,6 +70,11 @@ def print_val(val, r, c):
     for row in decode(val, r, c):
         print(row)
 
+def print_gen(generatorOutput):
+    for row in generatorOutput[0]:
+        print(row)
+    print('iteration {} pos {}'.format(str(generatorOutput[1]), str(generatorOutput[2])))
+
 def full_mask(r, c):
     ## Need a number with r * c ones
     return (2 ** (r * c)) - 1 
@@ -102,8 +107,9 @@ def make_explode(r, c):
     rightMask = right_mask(r, c)
     fullMask = full_mask(r, c)
     def explodeFunc(reg):
-        b = (reg | ((reg << 1) & leftMask)) | ((reg >> 1) & rightMask)
-        return (b | ((b << c) & fullMask)) | (b >> c)
+        a = (reg | ((reg << 1) & leftMask)) | ((reg >> 1) & rightMask)
+        b = (reg | ((reg << c) & fullMask)) | (reg >> c)
+        return a | b
     return explodeFunc
 
 
@@ -133,6 +139,24 @@ def bomberMan(n, grid):
         i += 2
         if i == n:
             return decode(B, r, c)
+
+def bomberGen(grid):
+    r = len(grid)
+    c = len(grid[0])
+    fullMask = full_mask(r,c)
+    explode = make_explode(r, c)
+    B = encode(grid)
+    i = 1
+
+    while True:
+        A = fullMask - (B | explode(B))
+        i += 2
+        yield (decode(A, r, c), i, 'Top')
+
+        B = fullMask - (A | explode(A))
+        i += 2
+        yield (decode(B, r, c), i, 'Bottom')
+
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
