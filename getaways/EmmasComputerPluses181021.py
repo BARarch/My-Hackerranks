@@ -6,9 +6,26 @@ import random
 import re
 import sys
 
+class TestCase:
+    def __init__(self, fileName):
+        pass
+
+    def get_n(self):
+        pass
+
+    def get_m(self):
+        pass
+
+    def get_grid(self):
+        pass
+
+        
+
 # Complete the twoPluses function below.
 def twoPluses(grid):
     pass
+
+
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
