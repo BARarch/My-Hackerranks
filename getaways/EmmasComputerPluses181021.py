@@ -50,6 +50,10 @@ def decode(val, r, c):
         grid.append(binVal[start:start + c])
     return grid
 
+def print_grid(grid):
+    for row in grid:
+        print(row)
+
         
 def crossProduct(elm):
     return elm[0] * elm[1]
