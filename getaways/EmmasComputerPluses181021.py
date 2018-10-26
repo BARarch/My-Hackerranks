@@ -29,6 +29,27 @@ class TestCase:
     def get_grid(self):
         return self.grid
 
+def encode(grid):
+    val = 0
+    for row in grid:
+        for c in row:
+            val <<= 1
+            if c == "G":
+                val |= 1
+    return val
+
+def decode(val, r, c):
+    grid = []
+    col = 0
+    row = ''
+    binVal = bin(val)[2:]
+    binVal = ('0' * ((r * c) - len(binVal))) + binVal
+    #print(binVal)
+    #print(len(binVal))
+    for start in range(0, len(binVal), c):
+        grid.append(binVal[start:start + c])
+    return grid
+
         
 def crossProduct(elm):
     return elm[0] * elm[1]
