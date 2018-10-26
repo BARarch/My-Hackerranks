@@ -50,6 +50,45 @@ def decode(val, r, c):
         grid.append(binVal[start:start + c])
     return grid
 
+def full_mask(r, c):
+    ## Need a number with r * c ones
+    return (2 ** (r * c)) - 1
+
+def left_mask(r, c, n):
+    ## r rows of c - n 1s followed buy n 0s
+    if n >= c:
+        return 0
+    val = 0    
+    num = ((2 ** (c - n)) - 1) << n
+    for _ in range(r):
+        val <<= c
+        val |= num
+    return val
+
+def right_mask(r, c, n):
+    ## r rows of n 0s followed bu c - n 1s
+    if n >= c:
+        return 0
+    val = 0
+    num = (2 ** (c - n)) - 1
+    for _ in range(r):
+        val <<= c
+        val |= num
+    return val
+
+
+def shift_left(val, r, c, n):
+    pass
+
+def shift_right(val, r, c, n):
+    pass
+
+def shift_up(val, r, c, n, fullMask):
+    return val << (n * c) & fullMask
+
+def shift_down(val, r, c, n, fullMask):
+    return val >> (n * c)
+
 def print_grid(grid):
     for row in grid:
         print(row)
