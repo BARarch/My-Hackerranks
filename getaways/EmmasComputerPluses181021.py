@@ -9,25 +9,36 @@ from itertools import *
 
 class TestCase:
     def __init__(self, fileName):
-        pass
+        f = open(fileName, 'r')
+        st = list(map(int, f.readline().rstrip().split(' ')))
+        self.r = st[0]
+        self.c = st[1]
+        self.grid = []
 
-    def get_n(self):
-        pass
+        for _ in range(self.r):
+            self.grid.append(f.readline().rstrip())
 
-    def get_m(self):
-        pass
+        f.close()
+
+    def get_r(self):
+        return self.r
+
+    def get_c(self):
+        return self.c
 
     def get_grid(self):
-        pass
+        return self.grid
 
         
 def crossProduct(elm):
     return elm[0] * elm[1]
+
 # Complete the twoPluses function below.
 def twoPluses(grid):
+    T = {}
 
     ## Last Step: Find Highest Product that does not intercept
-    for comb in sorted(combinations_with_replacement(T.keys(), 2), key=crossProduct, reverse=True)
+    for comb in sorted(combinations_with_replacement(T.keys(), 2), key=crossProduct, reverse=True):
         for A in T[comb[0]]:
             for B in T[comb[1]]:
                 if (A & B) == 0:
