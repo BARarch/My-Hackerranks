@@ -101,6 +101,24 @@ def crossProduct(elm):
 
 # Complete the twoPluses function below.
 def twoPluses(grid):
+    # Step 1:Encoding
+    r = len(grid)
+    c = len(grid[0])
+    val_0 = encode(grid)
+    curr = val_0
+    S = []
+    S.append(curr)
+    fullMask = full_mask(len(grid), len(grid[0]))
+   
+    # Steps 2, 3,4: H and V Shifting 
+    for n in range(1,7):
+        curr &= shift_down(val_0, r, c, n, fullMask) & shift_left(val_0, r, c, n) & shift_up(val_0, r, c, n, fullMask) & shift_right(val_0, r, c, n) 
+        if curr == 0:
+            break
+        else:
+            S.append(curr)
+
+    # Step 5: Cross Parsing    
     T = {}
 
     ## Last Step: Find Highest Product that does not intercept
