@@ -77,10 +77,14 @@ def right_mask(r, c, n):
     return val
 
 def shift_left(val, r, c, n):
-    pass
+    if n >= c:
+        return 0
+    return (val << n) & left_mask(r, c, n)
 
 def shift_right(val, r, c, n):
-    pass
+    if n >= c:
+        return 0
+    return (val >> n) & right_mask(r, c, n)
 
 def shift_up(val, r, c, n, fullMask):
     return val << (n * c) & fullMask
