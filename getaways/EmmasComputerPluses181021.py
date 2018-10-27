@@ -99,6 +99,9 @@ def print_grid(grid):
 def crossProduct(elm):
     return elm[0] * elm[1]
 
+def make_cross(val, n):
+    pass
+
 # Complete the twoPluses function below.
 def twoPluses(grid):
     # Step 1:Encoding
@@ -118,8 +121,23 @@ def twoPluses(grid):
         else:
             S.append(curr)
 
-    # Step 5: Cross Parsing    
-    T = {}
+    # Step 5: Cross Parsing
+    # The centers of crosses of the same size are stored under the same hash
+    T_0 = {}
+    size = 0
+    for val in S:
+        # Outerloop for crosses of different sizes
+        T_0[size] = []
+        n = 0
+        for digit in bin(reversed(val))[2:]:
+            # Inner loop parses 1s
+            if digit == '1':
+                T_0[size].append(1 << n)
+            n += 1
+        size += 1
+
+    # Step 6: Make Crosses
+    T = {(1 + (4 * size)): map(lambda val: make_cross(val, size), T_0[size]) for size in T_0}
 
     ## Last Step: Find Highest Product that does not intercept
     for comb in sorted(combinations_with_replacement(T.keys(), 2), key=crossProduct, reverse=True):
