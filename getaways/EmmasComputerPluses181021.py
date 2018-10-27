@@ -76,7 +76,6 @@ def right_mask(r, c, n):
         val |= num
     return val
 
-
 def shift_left(val, r, c, n):
     pass
 
@@ -93,7 +92,6 @@ def print_grid(grid):
     for row in grid:
         print(row)
 
-        
 def crossProduct(elm):
     return elm[0] * elm[1]
 
