@@ -99,8 +99,11 @@ def print_grid(grid):
 def crossProduct(elm):
     return elm[0] * elm[1]
 
-def make_cross(val, n):
-    pass
+def make_cross(val, r, c, n, fullMask):
+    cross = val
+    for dist in range(1, n + 1):
+        cross |= shift_down(val, r, c, dist, fullMask) | shift_left(val, r, c, dist) | shift_up(val, r, c, dist, fullMask) | shift_right(val, r, c, dist)
+    return cross
 
 # Complete the twoPluses function below.
 def twoPluses(grid):
@@ -137,7 +140,7 @@ def twoPluses(grid):
         size += 1
 
     # Step 6: Make Crosses
-    T = {(1 + (4 * size)): map(lambda val: make_cross(val, size), T_0[size]) for size in T_0}
+    T = {(1 + (4 * size)): map(lambda val: make_cross(val, r, c, size, fullMask), T_0[size]) for size in T_0}
 
     ## Last Step: Find Highest Product that does not intercept
     for comb in sorted(combinations_with_replacement(T.keys(), 2), key=crossProduct, reverse=True):
@@ -145,9 +148,6 @@ def twoPluses(grid):
             for B in T[comb[1]]:
                 if (A & B) == 0:
                     return crossProduct(comb) 
-
-
-
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
