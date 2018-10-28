@@ -1,5 +1,3 @@
-#!/bin/python3
-
 import math
 import os
 import random
@@ -44,8 +42,6 @@ def decode(val, r, c):
     row = ''
     binVal = bin(val)[2:]
     binVal = ('0' * ((r * c) - len(binVal))) + binVal
-    #print(binVal)
-    #print(len(binVal))
     for start in range(0, len(binVal), c):
         grid.append(binVal[start:start + c])
     return grid
@@ -101,13 +97,8 @@ def crossProduct(elm):
 
 def make_cross(val, r, c, n, fullMask):
     cross = val
-    #print('in n = {}'.format(str(n)))
-    #print_grid(decode(cross, r, c))
     for dist in range(1, n + 1):
         cross |= shift_down(val, r, c, dist, fullMask) | shift_left(val, r, c, dist) | shift_up(val, r, c, dist, fullMask) | shift_right(val, r, c, dist)
-    #print('out')
-    #print_grid(decode(cross, r, c))
-    #print()
     return cross
 
 # Complete the twoPluses function below.
@@ -143,22 +134,16 @@ def twoPluses(grid):
                 T_0[size].append(1 << n)
             n += 1
         size += 1
-    #print('Elements in T_0: {}'.format(str(len(T_0))))
-    #print(T_0)
 
     # Step 6: Make Crosses
     T = {(1 + (4 * size)): list(map(lambda val: make_cross(val, r, c, size, fullMask), T_0[size])) for size in T_0}
-    #print('Elements in T: {}'.format(str(len(T))))
-    #print(T)
 
     ## Last Step: Find Highest Product that does not intercept
     for comb in sorted(combinations_with_replacement(T.keys(), 2), key=crossProduct, reverse=True):
-        #print(comb)
         for A in T[comb[0]]:
             for B in T[comb[1]]:
                 if (A & B) == 0:
                     ## Show Result
-                    print_grid(decode(A | B, r, c))
                     return crossProduct(comb)
     print("Returned Nothing")
 
