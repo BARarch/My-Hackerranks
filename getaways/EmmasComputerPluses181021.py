@@ -132,7 +132,7 @@ def twoPluses(grid):
         # Outerloop for crosses of different sizes
         T_0[size] = []
         n = 0
-        for digit in bin(reversed(val))[2:]:
+        for digit in reversed(bin(val)[2:]):
             # Inner loop parses 1s
             if digit == '1':
                 T_0[size].append(1 << n)
