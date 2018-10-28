@@ -147,7 +147,10 @@ def twoPluses(grid):
         for A in T[comb[0]]:
             for B in T[comb[1]]:
                 if (A & B) == 0:
-                    return crossProduct(comb) 
+                    ## Show Result
+                    print_grid(decode(A | B, r, c))
+                    return crossProduct(comb)
+    print("Returned Nothing")
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
