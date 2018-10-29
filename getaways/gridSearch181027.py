@@ -6,8 +6,68 @@ import random
 import re
 import sys
 
+class TestCase:
+    def __init__(self, fileName):
+        f = open(fileName, 'r')
+        RC = list(map(int, f.readline().rstrip().split(' ')))
+        self.R = RC[0]
+        self.C = RC[1]
+        self.G = []
+        for _ in range(self.R):
+            self.G.append(f.readline().rstrip())
+
+        rc = list(map(int, f.readline().rstrip().split(' ')))
+        self.r = rc[0]
+        self.c = rc[1]
+        self.P = []
+        for _ in range(self.r):
+            self.P.append(f.readline().rstrip())
+
+        f.close()
+
+    def get_R(self):
+        return self.R
+
+    def get_C(self):
+        return self.C
+
+    def get_G(self):
+        return self.G
+
+    def get_r(self):
+        return self.r
+
+    def get_c(self):
+        return self.c
+
+    def get_P(self):
+        return self.P
+
+def make_row_Tracker(remaningRows):        
+    def Tracker(col):
+        ## Remember this is left to right
+        for row in remaningRows:
+            yield (row, col)
+        yield 'YES'
+    return Tracker
+
+def row_check(row, seq):
+    ## returns a list of indexies for the start of occuraces
+    ## of seq in row
+    res = []
+    b = 0
+    while True:
+        start = row.find(seq)
+        if start == -1:
+            return res
+        res.append(b + start)
+        dist = start + len(seq)
+        b += dist
+        row = row[dist:]
+
 # Complete the gridSearch function below.
 def gridSearch(G, P):
+    pass
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
