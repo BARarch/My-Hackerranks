@@ -5,6 +5,7 @@ import os
 import random
 import re
 import sys
+from collections import deque
 
 class TestCase:
     def __init__(self, fileName):
@@ -61,13 +62,50 @@ def row_check(row, seq):
         if start == -1:
             return res
         res.append(b + start)
-        dist = start + len(seq)
+        dist = start + 1
         b += dist
         row = row[dist:]
 
 # Complete the gridSearch function below.
 def gridSearch(G, P):
-    pass
+    # Make Row Tracker
+    initSeq = P[0]
+    rowTrack = make_row_Tracker(P[1:])
+    currentTrackers = deque()
+    R = len(G)
+    r = len(P)
+    c = len(P[0])
+
+    n = 0
+    for row in G:
+        newTrackers = deque()
+        while currentTrackers:
+            tracker = currentTrackers.popleft()
+            res = next(tracker)
+            # Check for Termination
+            if res == 'YES':
+                return 'YES'
+
+            seq = res[0]
+            start = res[1]
+            if row[start:start + c] == seq:
+                ## Retain Tracker if it is still got
+                newTrackers.append(tracker)
+
+        if n < R - r + 1:
+            newTrackers.extend(list(map(rowTrack, row_check(row, initSeq))))
+        
+        n += 1 
+        currentTrackers = newTrackers
+
+    ## Check Remaining Trackers
+    while currentTrackers:
+        tracker = currentTrackers.popleft()
+        res = next(tracker)
+        if res == 'YES':
+            return 'YES'
+    return 'NO'
+
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
