@@ -33,6 +33,11 @@ def count_ones(val):
 def calc_tops(val, next):
     pass
 
+def make_section_next(A):
+    ## Generator that gives sections for successive levels
+    ## of A with each call.
+    pass
+
 # Complete the surfaceArea function below.
 def surfaceArea(A):
     curr = 'Read Base to int'
