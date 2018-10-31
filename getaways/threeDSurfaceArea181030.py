@@ -6,6 +6,15 @@ import random
 import re
 import sys
 
+def full_mask(r, c):
+    pass
+
+def right_mask(r, c):
+    pass
+
+def left_mask(r, c):
+    pass
+
 def make_calc_north(r, c):
     pass
 
