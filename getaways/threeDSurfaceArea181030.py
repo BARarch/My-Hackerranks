@@ -6,7 +6,22 @@ import random
 import re
 import sys
 
+def make_calc_north(r, c):
+    pass
+
+def make_calc_east(r, c):
+    pass
+
+def make_calc_south(r, c):
+    pass
+
+def make_calc_west(r, c):
+    pass
+
 def count_ones(val):
+    pass
+
+def calc_tops(val, next):
     pass
 
 # Complete the surfaceArea function below.
@@ -53,7 +68,4 @@ if __name__ == '__main__':
 
     fptr.write(str(result) + '\n')
 
-   eArea(A)
-fptr.write(str(result) + '\n')
-
-fptr.close()
+    fptr.close()
