@@ -101,9 +101,11 @@ def make_section_next(A):
         val = 0
         for row in A:
             for c in row:
-                val << 1
+                val <<= 1
                 if c > n:
+                    #print('{} is greater on {} level'.format(str(c), str(n)))
                     val |= 1
+                    #print('val is {}'.format(str(val)))
         yield val
         n += 1
 
@@ -118,6 +120,11 @@ def decode_section(val, r, c):
     for start in range(0, len(binVal), c):
         sect.append(binVal[start:start + c])
     return sect
+
+def print_decode_section(val, r, c):
+    sectionList = decode_section(val, r, c)
+    for row in sectionList:
+        print(row)
 
 # Complete the surfaceArea function below.
 def surfaceArea(A):
