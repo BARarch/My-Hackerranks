@@ -66,7 +66,7 @@ def make_calc_east(r, c):
     ## We will need a right mask
     rightMask = right_mask(r, c)
     def east_calc(val):
-        return val & (val ^ (rightMask & (val << 1)))
+        return val & (val ^ (rightMask & (val >> 1)))
     return east_calc
 
 
