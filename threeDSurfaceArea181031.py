@@ -1,34 +1,8 @@
-#!/bin/python3
-
 import math
 import os
 import random
 import re
 import sys
-
-class TestCase:
-    def __init__(self, file):
-        f = open(file, 'r')
-        HW = list(map(int, f.readline().rstrip().split(' ')))
-
-        self.h = HW[0]
-        self.w = HW[1]
-        self.A = []
-
-        for _ in range(self.h):
-            self.A.append(list(map(int, f.readline().rstrip().split(' '))))
-
-        f.close()
-
-    def get_h(self):
-        return self.h
-
-    def get_w(self):
-        return self.w
-
-    def get_A(self):
-        return self.A
-
 
 def full_mask(r, c):
     return (2 ** (r * c)) - 1
@@ -103,9 +77,7 @@ def make_section_next(A):
             for c in row:
                 val <<= 1
                 if c > n:
-                    #print('{} is greater on {} level'.format(str(c), str(n)))
                     val |= 1
-                    #print('val is {}'.format(str(val)))
         yield val
         n += 1
 
@@ -115,8 +87,7 @@ def decode_section(val, r, c):
     row = ''
     binVal = bin(val)[2:]
     binVal = ('0' * ((r * c) - len(binVal))) + binVal
-    #print(binVal)
-    #print(len(binVal))
+
     for start in range(0, len(binVal), c):
         sect.append(binVal[start:start + c])
     return sect
