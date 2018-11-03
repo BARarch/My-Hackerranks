@@ -11,8 +11,24 @@ def peak_val(arr):
 
 # Complete the almostSorted function below.
 def almostSorted(arr):
-    s = sorted(arr)
-    
+	peaks = []
+	vals = []
+	last = None
+	n = 1
+	increasing = True
+	for c in arr:
+	    #s = sorted(arr)
+	    if increasing:
+	    	if c < last:
+	    		peaks.append(n - 1)
+	    		increasing = False
+	    else:
+	    	if c > last:
+	    		vals.append(n - 1)
+	    		increasing = True
+    	last = c
+    	n += 1
+
     return 'no'
 
 if __name__ == '__main__':
