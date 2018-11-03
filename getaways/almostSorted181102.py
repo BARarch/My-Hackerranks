@@ -6,6 +6,9 @@ import random
 import re
 import sys
 
+def peak_val(arr):
+	
+
 # Complete the almostSorted function below.
 def almostSorted(arr):
     s = sorted(arr)
