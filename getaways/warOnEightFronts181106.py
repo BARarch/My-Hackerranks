@@ -8,7 +8,7 @@
 ## Front 5: Google Recriutment   -- Software Practices Sector
 ## Front 6: Money Things         -- Solo Entrepreneur Sector
 ## Front 7: Higher Ed Jobs       -- Curiousity Sector
-## Front 8: Stadium Architecture -- Archtitecture Sector
+## Front 8: The Depth Concept    -- Archtitecture and Phenominology Sector
 
 ### There is nothing more rediculous than fighting a war on eight fronts
 ### So it is upto me to coordinate these interests to get the life I want
