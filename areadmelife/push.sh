@@ -10,8 +10,8 @@ fi
 d=date
 f=+'%y%m%d'
 da=$($d $f)
-echo "$TITLE$da.py"
-cat > "$TITLE$da.py"
+echo "$TITLE$da.txt"
+cat > "$TITLE$da.txt"
 
 
 if [ -z "$2" ]; then
