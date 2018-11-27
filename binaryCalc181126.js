@@ -1,4 +1,4 @@
-var res = document.getElementById('res');
+var res = document.getElementById('res');
 
 var btn0 = document.getElementById('btn0');
 var btn1 = document.getElementById('btn1');
