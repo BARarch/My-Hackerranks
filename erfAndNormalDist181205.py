@@ -2,7 +2,7 @@ from math import erf, sqrt
 
 def cdf(x, u, o):
     ''' u: mean
-        o: standart deviation
+        o: standard deviation
     '''
     return (1 / 2) * (1 + erf((x - u) / (o * sqrt(2))))
 
