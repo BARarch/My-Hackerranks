@@ -1,0 +1,2 @@
+# My First Day as a Graphic Designer
+I am putting myself through the paces as an artist, a storyteller, and master communicator.  Though my years ass a software engineer I have been relegated to living cerebrally in many ways.  Now is the time to break out of this and create artifacts from a constellation of thoughts.  But how?  This is were the art and creativity lelies.  The interesction of spontenaety and impovisation.  A world of Ahha moments.
