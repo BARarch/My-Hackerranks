@@ -30,7 +30,8 @@ def queensAttack(n, k, r_q, c_q, obstacles):
     S = [0] * n                 #an number on the list for each row
     make_board(S, obstacles)
 
-    show_board(S)
+    #show_board(S)
+    return 0
 
 
 if __name__ == '__main__':
@@ -58,4 +59,3 @@ if __name__ == '__main__':
     fptr.write(str(result) + '\n')
 
     fptr.close()
-
