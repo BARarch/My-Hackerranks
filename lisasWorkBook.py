@@ -10,6 +10,12 @@ import sys
 # Complete the workbook function below.
 def workbook(n, k, arr):
 
+    def page(k, arr):
+    ## there can only be one special number per page
+        page = 1
+        for nProbs in arr:
+            while nProbs:
+
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
 
