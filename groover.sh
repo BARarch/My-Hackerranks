@@ -29,7 +29,7 @@ elif [ $COMMD == "--test" ]; then
   else
     bash bash-pipe/test.sh $TITLE $3
   fi
-elif [ $COMMD == "--sumbitted" ]; then
+elif [ $COMMD == "--submitted" ]; then
   if [ -z "$3" ]; then
     bash bash-pipe/submitted.sh $TITLE
   else
