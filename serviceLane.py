@@ -8,7 +8,9 @@ import re
 import sys
 
 # Complete the serviceLane function below.
-def serviceLane(n, cases):
+def serviceLane(width, cases):
+    return map(lambda x:min(width[x[0]:(x[1] + 1)]), cases)
+
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
@@ -26,7 +28,7 @@ if __name__ == '__main__':
     for _ in range(t):
         cases.append(list(map(int, input().rstrip().split())))
 
-    result = serviceLane(n, cases)
+    result = serviceLane(width, cases)
 
     fptr.write('\n'.join(map(str, result)))
     fptr.write('\n')
