@@ -45,11 +45,11 @@ def insertNodeAtTail(head, data):
     return head
     
 def insertHelper(head, data):
-    #print_singly_linked_list(head, ' ', fptr)
-    if head.next == None:
-        head.next = SinglyLinkedListNode(data)
-    else:
-        insertHelper(head.next, data)
+    while head.next != None:
+        head = head.next
+    
+    head.next = SinglyLinkedListNode(data)
+
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
