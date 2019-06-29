@@ -48,6 +48,22 @@ def print_singly_linked_list(node, sep, fptr):
 #
 #
 def insertNodeAtPosition(head, data, position):
+    curr = head
+    if position == 0:
+        listElem = SinglyLinkedListNode(data)
+        listElem.next = head
+        head = listElem
+        return head
+
+    while position > 1:
+        curr = curr.next
+        position -= 1
+    
+    listElem = SinglyLinkedListNode(data)
+    listElem.next = curr.next
+    curr.next = listElem
+    
+    return head
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
