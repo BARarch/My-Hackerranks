@@ -48,6 +48,16 @@ def print_singly_linked_list(node, sep, fptr):
 #
 #
 def reverse(head):
+    curr = head
+    prev = None
+    while curr != None:
+        nextt = curr.next
+        previous = prev
+        prev = SinglyLinkedListNode(curr.data)
+        prev.next = previous
+        curr = nextt
+
+    return prev
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
