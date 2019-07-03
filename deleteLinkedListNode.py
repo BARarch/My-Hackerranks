@@ -48,6 +48,19 @@ def print_singly_linked_list(node, sep, fptr):
 #
 #
 def deleteNode(head, position):
+    curr = head
+    prev = None
+    for _ in range(position):
+        prev = curr
+        curr = curr.next
+    
+    if prev:
+        prev.next = curr.next
+    else:
+        #prev is null
+        head = curr.next
+
+    return head
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
