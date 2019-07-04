@@ -1,7 +1,7 @@
 #!/Users/anthonyquivers/anaconda3/bin/python
 #Date Started: 190703
 
-math
+import math
 import os
 import random
 import re
@@ -47,7 +47,22 @@ def print_singly_linked_list(node, sep):
 #     SinglyLinkedListNode next
 #
 #
+
 def reversePrint(head):
+    def reverseLinkList(head):
+        curr = head
+        prev = None
+        while curr != None:
+            nextt = curr.next
+            previous = prev
+            prev = SinglyLinkedListNode(curr.data)
+            prev.next = previous
+            curr = nextt
+
+        return prev
+    print_singly_linked_list(reverseLinkList(head), "\n")
+    print()
+
 
 if __name__ == '__main__':
     tests = int(input())
