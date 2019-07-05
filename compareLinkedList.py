@@ -1,7 +1,7 @@
 #!/Users/anthonyquivers/anaconda3/bin/python
 #Date Started: 190704
 
-s
+import os
 import sys
 
 class SinglyLinkedListNode:
@@ -45,6 +45,20 @@ def print_singly_linked_list(node, sep, fptr):
 #
 #
 def compare_lists(llist1, llist2):
+    c1 = llist1
+    c2 = llist2
+
+    while (c1 is not None and c2 is not None):
+        if c1.data != c2.data:
+            return 0
+
+        c1 = c1.next
+        c2 = c2.next
+
+    ## If both are at the tail and are the same value
+    if c1 is None and c2 is None:
+        return 1
+    return 0
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
