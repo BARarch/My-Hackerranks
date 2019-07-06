@@ -49,6 +49,35 @@ def print_singly_linked_list(node, sep, fptr):
 #
 #
 def mergeLists(head1, head2):
+    merged = None
+    curr1 = head1
+    curr2 = head2
+
+    if curr1.data < curr2.data:
+        mergedHead = head1
+        merged = curr1
+        curr1 = curr1.next
+    else:
+        mergedHead = head2
+        merged = curr2
+        curr2 = curr2.next
+
+    while curr1 is not None and curr2 is not None:
+        if curr1.data < curr2.data:
+            merged.next = curr1
+            curr1 = curr1.next
+        else:
+            merged.next = curr2
+            curr2 = curr2.next
+        merged = merged.next
+
+    if curr2 is None:
+        merged.next = curr1
+    elif curr1 is None:
+        merged.next = curr2
+
+    return mergedHead
+            
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
