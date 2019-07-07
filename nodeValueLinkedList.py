@@ -48,6 +48,25 @@ def print_singly_linked_list(node, sep, fptr):
 #
 #
 def getNode(head, positionFromTail):
+    def reverse(head):
+        curr = head
+        prev = None
+        while curr != None:
+            nextt = curr.next
+            previous = prev
+            prev = SinglyLinkedListNode(curr.data)
+            prev.next = previous
+            curr = nextt
+
+        return prev
+
+    curr = reverse(head)
+    while positionFromTail > 0:
+        curr = curr.next
+        positionFromTail -= 1
+    
+    return curr.data
+
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
