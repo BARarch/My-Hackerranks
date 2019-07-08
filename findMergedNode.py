@@ -48,7 +48,19 @@ def print_singly_linked_list(node, sep, fptr):
 #
 #
 def findMergeNode(head1, head2):
-    return 1
+    # Convert data for the list of head 1 to string
+    curr = head1
+    while curr is not None:
+        curr.data = str(curr.data)
+        curr = curr.next
+    
+    # Find the first data that is a string
+    curr = head2
+    while type(curr.data) != str:
+        curr = curr.next
+        
+    # Convert it back to int
+    return int(curr.data)
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
