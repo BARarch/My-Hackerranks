@@ -53,7 +53,7 @@ class VisitedNode(SinglyLinkedListNode):
     def __init__(self, rootNode):
         self.root = rootNode
         self.data = rootNode.data
-        self.rootNode.data = self
+        self.root.data = self
 
 def has_cycle(head):
     curr = head
