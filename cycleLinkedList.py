@@ -48,7 +48,23 @@ def print_singly_linked_list(node, sep, fptr):
 #     SinglyLinkedListNode next
 #
 #
+
+class VisitedNode(SinglyLinkedListNode):
+    def __init__(self, rootNode):
+        self.root = rootNode
+        self.data = rootNode.data
+        self.rootNode.data = self
+
 def has_cycle(head):
+    curr = head
+
+    while curr is not None:
+        if type(curr.data) == str:
+            return 1
+        curr.data = str(curr.data)
+        curr = curr.next
+
+    return 0
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
