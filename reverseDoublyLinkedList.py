@@ -52,6 +52,15 @@ def print_doubly_linked_list(node, sep, fptr):
 #
 #
 def reverse(head):
+    curr = head
+    while curr is not None:
+        nextNode = curr.next
+        curr.next = curr.prev
+        curr.prev = nextNode
+        last = curr
+        curr = nextNode
+    head = last
+    return head
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
