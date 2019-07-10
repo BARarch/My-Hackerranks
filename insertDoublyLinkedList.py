@@ -52,6 +52,36 @@ def print_doubly_linked_list(node, sep, fptr):
 #
 #
 def sortedInsert(head, data):
+    curr = head
+
+    while curr is not None:
+        # if value is less than or equal to curr we insert before
+        if data < curr.data:
+            if curr.prev is None:
+                # This is the head
+                insertedNode = DoublyLinkedListNode(data)
+                curr.prev = insertedNode
+                insertedNode.next = curr
+                return insertedNode
+            else:
+                insertedNode = DoublyLinkedListNode(data)
+                curr.prev.next = insertedNode
+                insertedNode.next = curr
+                insertedNode.prev = curr.prev
+                curr.prev = insertedNode
+                return head
+
+        last = curr
+        curr = curr.next
+        
+
+    ## End of list
+    insertedNode = DoublyLinkedListNode(data)
+    last.next = insertedNode
+    insertedNode.prev = last
+
+    return head
+        
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
