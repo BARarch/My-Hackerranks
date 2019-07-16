@@ -7,10 +7,26 @@ import sys
 #
 # Complete the swapNodes function below.
 #
+def left_child(node):
+    return node[0]
+
+def right_child(node):
+    return node[1]
+
+def node_at(indexes, n):
+    return indexes[n - 1]
+
 def swapNodes(indexes, queries):
-    #
-    # Write your code here.
-    #
+    #print(indexes)
+    in_order_indexes(indexes, 1)
+    return [[1]]
+
+def in_order_indexes(indexes, n):
+    if left_child(node_at(indexes, n)) != -1:
+        in_order_indexes(indexes, left_child(node_at(indexes, n)))    
+    print(n, end=" ")
+    if right_child(node_at(indexes, n)) != -1:
+        in_order_indexes(indexes, right_child(node_at(indexes, n)))
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
