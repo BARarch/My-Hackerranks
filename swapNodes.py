@@ -43,44 +43,51 @@ def swapNodes(indexes, queries):
         if right_child(node_at(indexes, n)) != -1:
             pre_order_swaps(indexes, right_child(node_at(indexes, n)), d + 1, k, res)
 
-    def in_order_itter_q(indexes, res):
+    def in_order_itter_q(indexes, res, k):
         # Inorder Traversal with queue
         from collections import deque
         
         n = deque([1])
-        #level = deque([1])
+        level = deque([1])
         while n:
             #enter node
-            #if left child
-            if left_child(node_at(indexes, n[0])) != -1:
+            if level[0] % k == 0:
+                # perform swap on children
+                swap(indexes, n[0])
+            
+            if left_child(node_at(indexes, n[0])) != -1:        ## if left child
                 # save node to parent of left child queue
                 n.appendleft(left_child(node_at(indexes, n[0])))
+                level.appendleft(level[0] + 1)
                 # enter left child node 
                 continue
             while n:
                 #backtrack into queue
                 #append node to result: service the node inorder
                 res.append(n[0])
-                if right_child(node_at(indexes, n[0])) != -1:
-                    # remove serviced node
+                if right_child(node_at(indexes, n[0])) != -1:   ## if right child
+                    # remove serviced node and level
                     nodeWithRightChild = n.popleft()
+                    levelWithRightChild = level.popleft()
                     # enter right child node
                     n.appendleft(right_child(node_at(indexes, nodeWithRightChild))) 
+                    level.appendleft(levelWithRightChild + 1)
                     break
                 # remove serviced node
                 n.popleft()
+                level.popleft()
         
 
 
 
     outt = []
     for q in queries:
-        res = []
-        in_order_indexes(indexes, 1, res)
+        #res = []
+        #in_order_indexes(indexes, 1, res)
         #pre_order_swaps(indexes, 1, 1, q, res)
-        print(res)
+        #print(res)
         resQ = []
-        in_order_itter_q(indexes, resQ)
+        in_order_itter_q(indexes, resQ, q)
         #in_order_indexes_iter(indexes, resIter)
         #pre_order_swaps_iter(indexes, q, resIter)
         #res = []
