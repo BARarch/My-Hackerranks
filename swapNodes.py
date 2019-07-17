@@ -45,20 +45,45 @@ def swapNodes(indexes, queries):
 
     def in_order_itter_q(indexes, res):
         # Inorder Traversal with queue
-        pass
+        from collections import deque
+        
+        n = deque([1])
+        #level = deque([1])
+        while n:
+            #enter node
+            #if left child
+            if left_child(node_at(indexes, n[0])) != -1:
+                # save node to parent of left child queue
+                n.appendleft(left_child(node_at(indexes, n[0])))
+                # enter left child node 
+                continue
+            while n:
+                #append node to result: service the node inorder
+                res.append(n[0])
+                if right_child(node_at(indexes, n[0])) != -1:
+                    # enter right child node
+                    nodeWithRightChild = n.popleft()
+                    n.appendleft(right_child(node_at(indexes, nodeWithRightChild))) 
+                    break
+                # pop from parent of left child queue
+                n.popleft()
+        
 
 
 
     outt = []
     for q in queries:
         res = []
-        pre_order_swaps(indexes, 1, 1, q, res)
-        resIter = []
+        #pre_order_swaps(indexes, 1, 1, q, res)
+        in_order_indexes(indexes, 1, res)
+        print(res)
+        resQ = []
+        in_order_itter_q(indexes, resQ)
         #in_order_indexes_iter(indexes, resIter)
         #pre_order_swaps_iter(indexes, q, resIter)
         #res = []
         #in_order_indexes(indexes, 1, res)
-        outt.append(resIter)
+        outt.append(resQ)
         
     return outt
 
