@@ -34,10 +34,11 @@ def swapNodes(indexes, queries):
 
     def pre_order_swaps(indexes, n, d, k, res):
         if (d % k == 0):
-            # Perform Swap
+            # Perform Preorder Swap
             swap(indexes, n)
         if left_child(node_at(indexes, n)) != -1:
             pre_order_swaps(indexes, left_child(node_at(indexes, n)), d + 1, k, res)      
+        # Perform Inorder Print
         res.append(n)
         if right_child(node_at(indexes, n)) != -1:
             pre_order_swaps(indexes, right_child(node_at(indexes, n)), d + 1, k, res)
