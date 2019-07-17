@@ -43,7 +43,9 @@ def swapNodes(indexes, queries):
         if right_child(node_at(indexes, n)) != -1:
             pre_order_swaps(indexes, right_child(node_at(indexes, n)), d + 1, k, res)
 
-    
+    def in_order_itter_q(indexes, res):
+        # Inorder Traversal with queue
+        pass
 
 
 
