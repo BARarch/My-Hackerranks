@@ -25,25 +25,7 @@ def swapNodes(indexes, queries):
     def swap(indexes, n):
         indexes[n - 1] = list(reversed(indexes[n - 1]))
 
-    def in_order_indexes(indexes, n, res):
-        if left_child(node_at(indexes, n)) != -1:
-            in_order_indexes(indexes, left_child(node_at(indexes, n)), res)    
-        res.append(n)
-        if right_child(node_at(indexes, n)) != -1:
-            in_order_indexes(indexes, right_child(node_at(indexes, n)), res)
-
-    def pre_order_swaps(indexes, n, d, k, res):
-        if (d % k == 0):
-            # Perform Preorder Swap
-            swap(indexes, n)
-        if left_child(node_at(indexes, n)) != -1:
-            pre_order_swaps(indexes, left_child(node_at(indexes, n)), d + 1, k, res)      
-        # Perform Inorder Print
-        res.append(n)
-        if right_child(node_at(indexes, n)) != -1:
-            pre_order_swaps(indexes, right_child(node_at(indexes, n)), d + 1, k, res)
-
-    def in_order_itter_q(indexes, res, k):
+    def in_order_itter_q_swaps(indexes, res, k):
         # Inorder Traversal with queue
         from collections import deque
         
@@ -82,16 +64,8 @@ def swapNodes(indexes, queries):
 
     outt = []
     for q in queries:
-        #res = []
-        #in_order_indexes(indexes, 1, res)
-        #pre_order_swaps(indexes, 1, 1, q, res)
-        #print(res)
         resQ = []
-        in_order_itter_q(indexes, resQ, q)
-        #in_order_indexes_iter(indexes, resIter)
-        #pre_order_swaps_iter(indexes, q, resIter)
-        #res = []
-        #in_order_indexes(indexes, 1, res)
+        in_order_itter_q_swaps(indexes, resQ, q)
         outt.append(resQ)
         
     return outt
