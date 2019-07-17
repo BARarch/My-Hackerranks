@@ -58,14 +58,16 @@ def swapNodes(indexes, queries):
                 # enter left child node 
                 continue
             while n:
+                #backtrack into queue
                 #append node to result: service the node inorder
                 res.append(n[0])
                 if right_child(node_at(indexes, n[0])) != -1:
-                    # enter right child node
+                    # remove serviced node
                     nodeWithRightChild = n.popleft()
+                    # enter right child node
                     n.appendleft(right_child(node_at(indexes, nodeWithRightChild))) 
                     break
-                # pop from parent of left child queue
+                # remove serviced node
                 n.popleft()
         
 
@@ -74,8 +76,8 @@ def swapNodes(indexes, queries):
     outt = []
     for q in queries:
         res = []
-        #pre_order_swaps(indexes, 1, 1, q, res)
         in_order_indexes(indexes, 1, res)
+        #pre_order_swaps(indexes, 1, 1, q, res)
         print(res)
         resQ = []
         in_order_itter_q(indexes, resQ)
