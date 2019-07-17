@@ -43,53 +43,7 @@ def swapNodes(indexes, queries):
         if right_child(node_at(indexes, n)) != -1:
             pre_order_swaps(indexes, right_child(node_at(indexes, n)), d + 1, k, res)
 
-    def in_order_indexes_iter(indexes, res):
-        class SinglyLinkedListNode:
-            def __init__(self, node_data):
-                self.data = node_data
-                self.next = None
-
-        class SinglyLinkedList:
-            def __init__(self):
-                self.head = None
-                self.tail = None
-
-            def insert_node(self, node_data):
-                node = SinglyLinkedListNode(node_data)
-
-                if not self.head:
-                    self.head = node
-                else:
-                    self.tail.next = node
-
-
-                self.tail = node
-        pass
-
     
-    def pre_order_swaps_iter(indexes, k, res):
-        class SinglyLinkedListNode:
-            def __init__(self, node_data):
-                self.data = node_data
-                self.next = None
-
-        class SinglyLinkedList:
-            def __init__(self):
-                self.head = None
-                self.tail = None
-
-            def insert_node(self, node_data):
-                node = SinglyLinkedListNode(node_data)
-
-                if not self.head:
-                    self.head = node
-                else:
-                    self.tail.next = node
-
-
-                self.tail = node
-
-        pass
 
 
 
@@ -98,8 +52,8 @@ def swapNodes(indexes, queries):
         res = []
         pre_order_swaps(indexes, 1, 1, q, res)
         resIter = []
-        in_order_indexes_iter(indexes, resIter)
-        pre_order_swaps_iter(indexes, q, resIter)
+        #in_order_indexes_iter(indexes, resIter)
+        #pre_order_swaps_iter(indexes, q, resIter)
         #res = []
         #in_order_indexes(indexes, 1, res)
         outt.append(resIter)
