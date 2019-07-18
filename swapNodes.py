@@ -10,9 +10,7 @@ import sys
 
 
 def swapNodes(indexes, queries):
-    #print(indexes)
-    #print(queries)
-    #n_order_indexes(indexes, 1)
+
     def left_child(node):
         return node[0]
 
@@ -31,8 +29,7 @@ def swapNodes(indexes, queries):
         
         n = deque([1])
         level = deque([1])
-        while n:
-            #enter node
+        while n:            #enter node
             if level[0] % k == 0:
                 # perform swap on children
                 swap(indexes, n[0])
@@ -43,8 +40,7 @@ def swapNodes(indexes, queries):
                 level.appendleft(level[0] + 1)
                 # enter left child node 
                 continue
-            while n:
-                #backtrack into queue
+            while n:            #backtrack into queue
                 #append node to result: service the node inorder
                 res.append(n[0])
                 if right_child(node_at(indexes, n[0])) != -1:   ## if right child
@@ -55,12 +51,9 @@ def swapNodes(indexes, queries):
                     n.appendleft(right_child(node_at(indexes, nodeWithRightChild))) 
                     level.appendleft(levelWithRightChild + 1)
                     break
-                # remove serviced node
+                # remove serviced node and level
                 n.popleft()
                 level.popleft()
-        
-
-
 
     outt = []
     for q in queries:
