@@ -10,6 +10,9 @@ import sys
 
 # Complete the minimumMoves function below.
 def minimumMoves(grid, startX, startY, goalX, goalY):
+    for row in grid:
+        print(row)
+    print(grid[0][1])
     return 1
 
 if __name__ == '__main__':
