@@ -11,7 +11,7 @@ import sys
 # Complete the minimumMoves function below.
 def minimumMoves(grid, startX, startY, goalX, goalY):
     from itertools import repeat
-    from queue import SimpleQueue, Queue
+    from queue import Queue
 
     def init_move_functs(grid):
         n = len(grid)
