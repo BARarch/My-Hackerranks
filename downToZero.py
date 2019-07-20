@@ -15,6 +15,8 @@ def downToZero(n):
     from math import sqrt
 
     def largest_factors(n, step):
+        # Returns and genorator that returns the larges factors in a factor pair in order
+        # and then the N - 1 option
         minn = n       
         for i in reversed(range(2, 1 + int(sqrt(n)))):
             if n % i == 0:
@@ -26,7 +28,7 @@ def downToZero(n):
     #print(list(largest_factors(49, 0)))
 
     ## I have a largest_factors function that creates an iterator for each child value of n
-    ## I add to the queue of itterators for each try
+    ## I add to the queue a new iterator of childern for each try
     nValueQ = Queue()
     if n == 0:
         return 0
@@ -46,7 +48,7 @@ def downToZero(n):
             if factor[0] not in visitedFactors:
                 visitedFactors[factor[0]] = factor[1]
                 nValueQ.put(largest_factors(*factor))
-                #print(nValueQ.qsize())
+
 
     return "Out of Solns"
 
