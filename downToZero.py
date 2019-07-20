@@ -8,14 +8,11 @@ import sys
 # Complete the downToZero function below.
 #
 def downToZero(n):
-    #
-    # Write your code here.
-    #
     from queue import Queue
     from math import sqrt
 
     def largest_factors(n, step):
-        # Returns and genorator that returns the larges factors in a factor pair in order
+        # Returns and generator that returns the larges factors in a factor pair in order
         # and then the N - 1 option
         minn = n       
         for i in reversed(range(2, 1 + int(sqrt(n)))):
@@ -24,7 +21,6 @@ def downToZero(n):
                 yield((minn, step + 1))
         yield((n - 1), step + 1)
         
-
     #print(list(largest_factors(49, 0)))
 
     ## I have a largest_factors function that creates an iterator for each child value of n
@@ -48,7 +44,6 @@ def downToZero(n):
             if factor[0] not in visitedFactors:
                 visitedFactors[factor[0]] = factor[1]
                 nValueQ.put(largest_factors(*factor))
-
 
     return "Out of Solns"
 
