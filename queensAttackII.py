@@ -12,6 +12,8 @@ def queensAttack(n, k, r_q, c_q, obstacles):
     #n: width and height of board
     #k: number of obstacles
 
+    ## #############  OLD STUFF OLD SOLUTION FOR REFERENCE ONLY  ############
+    ## ######################################################################
     def make_board(S, obstacles):
         def get_row(obstacle):
             return obstacle[0]
@@ -28,11 +30,48 @@ def queensAttack(n, k, r_q, c_q, obstacles):
             ## Fixed Width Binary number
             print(('{0:0' + str(width) + 'b}').format(row))
 
-    S = [0] * n                 #an number on the list for each row
-    make_board(S, obstacles)
+    ## #############  OLD STUFF OLD SOLUTION FOR REFERENCE ONLY  ############
+    ## ######################################################################
 
+    #S = [0] * n                 #an number on the list for each row
+    #make_board(S, obstacles)
     #show_board(S)
-    return 0
+
+    def init_moves(row, column):
+        from itertools import repeat
+        # Functions that return interators for each moves
+        # Evaluate them to count spaces
+        # Remember
+        # (row, colunm)
+        # positive row: UP
+        # positive column: Right
+        # positions are numbered from 1 to n
+        N = zip(range(row + 1, n + 1), repeat(column))
+        NE = zip(range(row + 1, n + 1), range(column + 1, n + 1))
+        E = zip(repeat(row), range(column + 1, n + 1))
+        SE = zip(reversed(range(1, row)), range(column + 1, n + 1))
+        S = zip(reversed(range(1, row)), repeat(column))
+        SW = zip(reversed(range(1, row)), reversed(range(1, column)))
+        W = zip(repeat(row), reversed(range(1, column)))
+        NW = zip(range(row + 1, n + 1), reversed(range(1, column)))
+        
+        return [N, NE, E, SE, S, SW, W, NW]
+
+    # Throw Obsticles in a Hash
+    obstacles = {tuple(piece) : 0 for piece in obstacles}
+    #print(obstacles)
+
+    directions = init_moves(r_q, c_q)
+    nMoves = 0
+    for direction in directions:
+        for move in direction:
+            if move in obstacles:
+                # Drop Direction
+                break
+            nMoves += 1
+        
+
+    return nMoves
 
 
 if __name__ == '__main__':
