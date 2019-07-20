@@ -12,31 +12,6 @@ def queensAttack(n, k, r_q, c_q, obstacles):
     #n: width and height of board
     #k: number of obstacles
 
-    ## #############  OLD STUFF OLD SOLUTION FOR REFERENCE ONLY  ############
-    ## ######################################################################
-    def make_board(S, obstacles):
-        def get_row(obstacle):
-            return obstacle[0]
-
-        def get_col(obstacle):
-            return obstacle[1]
-
-        for obj in obstacles:
-            S[get_row(obj) - 1] |= 1 << (n - get_col(obj))
-
-    def show_board(S):
-        width = len(S)
-        for row in reversed(S):
-            ## Fixed Width Binary number
-            print(('{0:0' + str(width) + 'b}').format(row))
-
-    ## #############  OLD STUFF OLD SOLUTION FOR REFERENCE ONLY  ############
-    ## ######################################################################
-
-    #S = [0] * n                 #an number on the list for each row
-    #make_board(S, obstacles)
-    #show_board(S)
-
     def init_moves(row, column):
         from itertools import repeat
         # Functions that return interators for each moves
@@ -54,7 +29,7 @@ def queensAttack(n, k, r_q, c_q, obstacles):
         SW = zip(reversed(range(1, row)), reversed(range(1, column)))
         W = zip(repeat(row), reversed(range(1, column)))
         NW = zip(range(row + 1, n + 1), reversed(range(1, column)))
-        
+
         return [N, NE, E, SE, S, SW, W, NW]
 
     # Throw Obsticles in a Hash
