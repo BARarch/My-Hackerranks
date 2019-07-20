@@ -15,14 +15,14 @@ def minimumMoves(grid, startX, startY, goalX, goalY):
 
     def init_move_functs(grid):
         n = len(grid)
-        def left(x, y):  #left move negative y to 0
-            return zip(repeat(x), reversed(range(y)))
-        def right(x, y): # right move positive y to n
-            return zip(repeat(x), range(y + 1, n))
-        def up(x, y): # up move negative x to 0
-            return zip(reversed(range(0, x)), repeat(y))
-        def down(x, y): # down move positive x to n
-            return zip(reversed(range(x + 1, n)), repeat(y))
+        def left(x, y, step, prev, direction):  #left move negative y to 0
+            return zip(repeat(x), reversed(range(y)), repeat(step + 1), repeat((x, y)), repeat("LEFT"))
+        def right(x, y, step, prev, direction): # right move positive y to n
+            return zip(repeat(x), range(y + 1, n), repeat(step + 1), repeat((x, y)), repeat("RIGHT"))
+        def up(x, y, step, prev, direction): # up move negative x to 0
+            return zip(reversed(range(0, x)), repeat(y), repeat(step + 1), repeat((x, y)), repeat("UP"))
+        def down(x, y, step, prev, direction): # down move positive x to n
+            return zip(range(x + 1, n), repeat(y), repeat(step + 1), repeat((x, y)), repeat("DOWN"))
         return [left, up, right, down]
 
     def pickle_grid(grid):
@@ -32,44 +32,34 @@ def minimumMoves(grid, startX, startY, goalX, goalY):
 
     moves = init_move_functs(grid)
     obstacles = pickle_grid(grid)
-    nMoves = Queue()
     childrenMoves = Queue()   
-    ## How to evaluate moves from a point
-    #point = (0, 0)
-    #print(list(moves[3](*point)))
 
-    start = (startX, startY)
+    start = (startX, startY, 0, None, None)
     goal = (goalX, goalY)
-    visited = {}
+    visited = {start[:2]: 0}
 
     #Place in all children 1 move from start
     for move in moves:
         childrenMoves.put(move(*(start)))
-        nMoves.put(1)
 
     # Begin BFS
     while True:
-        arm = childrenMoves.get_nowait()
-        n = nMoves.get_nowait()
-        for point in arm:
-            #print(point)
+        direction = childrenMoves.get_nowait()
+        for point in direction:
+            # Base Case
+            if point[:2] == goal:
+                return point[2]   
+            # Obstacle Case
+            if obstacles(*(point[:2])) == "X":
+                break   # Drop move hit obstacle
             # Visited Case
-            if point in visited:
+            if point[:2] in visited:
                 # Skip dont check or add children
                 continue
-            # Base Case
-            if point == goal:
-                return n   
-            # Obstacle Case
-            if obstacles(*(point)) == "X":
-                break   # Drop move hit obstacle
             # Add Children Case
-            visited[point] = n
-            
+            visited[point[:2]] = point[2]          
             for move in moves:
-                childrenMoves.put(move(*(point)))
-                nMoves.put(n + 1)  
-        print(nMoves.qsize()) 
+                childrenMoves.put(move(*(point))) 
 
     return "Too Bigs"
 
