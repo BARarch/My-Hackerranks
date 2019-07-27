@@ -2,9 +2,10 @@
 #Date Started: 190727
 
 def solution(l):
+    print(l)
     return 1
 
 if __name__ == '__main__':
     n = int(input())
-    codes = map(int, input().split(' '))
+    codes = list(map(int, input().split(' ')))
     print(solution(codes))
