@@ -10,7 +10,7 @@ int main() {
     /* Enter your code here. Read input from STDIN. Print output to STDOUT */
     int n, q;
     scanf("%d %d", &n, &q);
-    vector<int> a[n];           // The golden line, an array of vectors of ints
+    std::vector<int> a[n];           // The golden line, an array of vectors of ints
 
     int k;
     for(int i = 0; i < n; i++) {
