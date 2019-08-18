@@ -1,6 +1,6 @@
 #!/bin/bash
 if [ -z "$1" ]; then
-  echo "what challenge are you grooving?"
+  echo "what challenge are you crushing?"
   read TITLE
   echo "Groovy!"
 else
