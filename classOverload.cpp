@@ -48,9 +48,20 @@ class Box {
     int getLength() {return l;}
     int getBreadth() {return b;}
     int getHeight() {return h;}
-    long long CalculateVolume() {return l * b * h;}
-    bool operator< (Box& b) {
-        return true;
+    long long CalculateVolume() {return (long long)l * (long long)b * (long long)h;}
+    bool operator< (Box& B) {
+        if (l < B.getLength()) {
+            //cout << "l is greater ";
+            //cout << l << endl;
+            return true;
+        }
+        if (b < B.getBreadth() && l == B.getLength()) {
+            return true;
+        }
+        if (h < B.getHeight() && b == B.getBreadth() && l == B.getLength()) {
+            return true;
+        }
+        return false;
     }
     friend ostream& operator<< (ostream& out, Box& B);
 
