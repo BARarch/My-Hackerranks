@@ -2,7 +2,7 @@
 if [ -z "$1" ]; then
   echo "what challenge are you crushing?"
   read TITLE
-  echo "Groovy!"
+  echo "Crush It!"
 else
   TITLE="$1" 
 fi
@@ -15,7 +15,7 @@ else
 fi
 
 if [ $COMMD == "--init" ]; then
-  bash bash-pipe/init.sh $TITLE
+  bash bash-pipe/initcpp.sh $TITLE
 
 elif [ $COMMD == "--case" ]; then
   if [ -z "$3" ]; then
@@ -25,9 +25,9 @@ elif [ $COMMD == "--case" ]; then
   fi
 elif [ $COMMD == "--test" ]; then
   if [ -z "$3" ]; then
-    bash bash-pipe/test.sh $TITLE
+    bash bash-pipe/testcpp.sh $TITLE
   else
-    bash bash-pipe/test.sh $TITLE $3
+    bash bash-pipe/testcpp.sh $TITLE $3
   fi
 elif [ $COMMD == "--submitted" ]; then
   if [ -z "$3" ]; then
