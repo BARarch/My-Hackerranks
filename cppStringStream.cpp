@@ -6,7 +6,18 @@
 using namespace std;
 
 vector<int> parseInts(string str) {
-	// Complete this function
+	stringstream ss(str);
+    vector<int> nums;
+    int x;
+    char ch;
+    while (!ss.eof()) {
+        ss >> x;
+        nums.push_back(x);
+        ss >> ch;
+    } 
+
+
+    return nums;
 }
 
 int main() {
