@@ -7,40 +7,37 @@ import random
 import re
 import sys
 
-# Complete the howManyGames function below.
-def howManyGames(p, d, m, s):
-    # Return the number of games you can buy
-    gamesPurchased = 0
+# Find the continuous subset in arr that sums to sum
+def sss(arr, ssum):
+    start = 0
+    stop = 0
+    currSum = arr[0]
 
-    cost = p
-    s -= cost
+    while stop < len(arr) + 1:
+        if currSum == ssum:
+            return (start + 1, stop + 1)
 
-    while s >= 0:
-        gamesPurchased += 1
-        #print('purchase price: ' + str(cost))     
-        cost -= d
-        if cost < m:
-            cost = m           
+        elif currSum > ssum:
+            currSum -= arr[start]
+            start += 1
+            continue
 
-        s -= cost
+        else:
+            if (stop + 1) < len(arr):
+                stop += 1
+                currSum += arr[stop]
+            else:
+                return (-1,)
 
-    return gamesPurchased
+    return (-1,)
 
 if __name__ == '__main__':
-    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    #fptr = open(os.environ['OUTPUT_PATH'], 'w')
 
-    pdms = input().split()
+    N = int(input())
+    for _ in range(N):
+        nSum = list(map(int, input().split()))
+        answer = sss(list(map(int, input().split())), nSum[1])
+        print(" ".join(list(map(str, answer))))
 
-    p = int(pdms[0])
-
-    d = int(pdms[1])
-
-    m = int(pdms[2])
-
-    s = int(pdms[3])
-
-    answer = howManyGames(p, d, m, s)
-
-    fptr.write(str(answer) + '\n')
-
-    fptr.close()
+    #fptr.close()
