@@ -20,30 +20,27 @@ def reverseNodesInKGroups(l, k):
     a = None
     b = l
     curr = l
-    i = 0
+    i = 1
     
-    while curr is not None:   
-        if (i % k) == 0:
+    while curr is not None:
+        temp = curr.next 
+        if i == k:
             # goose
-            if a is None:
-                print("Goose None {}".format(curr.value))
+            if a is None:                
                 l = reversekNodes(b, curr)
-                b.next = curr.next
+                b.next = temp
                 a = b
-                b = curr.next
+                b = temp
             else:
-                print("Goose {}".format(curr.value))
                 a.next = reversekNodes(b, curr)
-                b.next = curr.next
+                b.next = temp
                 a = b
-                b = curr.next
+                b = temp
+            i = 0
         
-        if curr.next is None:
-            print("Curr is None a element {}".format(i))
-        curr = curr.next
+        curr = temp
         i += 1
         
-
     return l
 
 if __name__ == '__main__':
