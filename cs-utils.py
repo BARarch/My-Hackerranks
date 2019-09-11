@@ -34,4 +34,4 @@ def iterate_ll(ll):
         curr = curr.next
 
 def ll_to_string(ll):
-    return list_to_string(list(iterrate_ll(ll)))
+    return list_to_string(list(iterate_ll(ll)))
