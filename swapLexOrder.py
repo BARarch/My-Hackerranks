@@ -46,6 +46,7 @@ def swapLexOrder(string, pairs):
 	return soln
 
 def all_of_the_nodes(pairs):
+	# Will need to pull out the pens for this one, Hehe
 	
 
 if __name__ == '__main__':
