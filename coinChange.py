@@ -62,6 +62,6 @@ if __name__ == '__main__':
 
     ways = getWays(n, c)
     #print(ways)
-    fptr.write(str(ways))
+    fptr.write(str(ways)+'\n')
     fptr.close()
 
