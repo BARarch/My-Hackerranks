@@ -25,27 +25,31 @@ import sys
 
 # Complete the getWays function below.
 def getWays(n, c):
-    if n == 0:
-        return 0  
-    #if len(c) == 0:
-    #    return 0
-    #if n in c:
-    #    a = c
-    #    a.remove(n)
-    #    return 1 + getWays(n, a)
-    
-    ways = 0
-    for i in c:
-        if n == i:
-            ways += 1
-        if n - i > 0:
-            ways += getWays(n - i, c)
+    coinsHash = {0: [{x: 0 for x in c}, ]}
+    getWaysHelp(n, c, coinsHash)
+    return len(coinsHash[n])
 
-    #print(ways)
-    return ways
-    
-def push_to_ways(n):
-    pass
+def getWaysHelp(n, c, cH):
+    if n <= 0:
+        return
+    if n in cH:
+        return   
+    cH[n] = []
+    for i in c:
+        getWaysHelp(n - i, c, cH)
+        if n - i in cH:
+            for way in cH[n - i]:
+                #print(n)
+                #print(way)
+                #print(cH)
+                wayMod = {x: way[x] for x in way} # Copy the Dict
+                wayMod[i] += 1
+                if wayMod not in cH[n]: # Check for overlap
+                    cH[n].append(wayMod)
+    print("{}: [ {} elements...]".format(n, len(cH[n])))
+ 
+    return 
+
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
