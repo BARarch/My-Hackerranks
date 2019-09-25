@@ -25,30 +25,28 @@ import sys
 
 # Complete the getWays function below.
 def getWays(n, c):
-    coinsHash = {0: [{x: 0 for x in c}, ]}
-    getWaysHelp(n, c, coinsHash)
-    return len(coinsHash[n])
+    coinsHash = {}
+    return getWaysHelp(n, c, coinsHash)
 
 def getWaysHelp(n, c, cH):
-    if n <= 0:
-        return
+    if n == 0:
+        return 1
+    if n < 0:
+        return 0
     if n in cH:
-        return   
-    cH[n] = []
-    for i in c:
-        getWaysHelp(n - i, c, cH)
-        if n - i in cH:
-            for way in cH[n - i]:
-                #print(n)
-                #print(way)
-                #print(cH)
-                wayMod = {x: way[x] for x in way} # Copy the Dict
-                wayMod[i] += 1
-                if wayMod not in cH[n]: # Check for overlap
-                    cH[n].append(wayMod)
-    print("{}: [ {} elements...]".format(n, len(cH[n])))
+        ct = tuple(c)
+        if ct in cH[n]:
+            return cH[n][ct]
+    
+    res = 0
+    for i, coin in enumerate(c):
+        res += getWaysHelp(n - coin, c[i:], cH)
+
+    if n not in cH:
+        cH[n] = {}
+    cH[n][tuple(c)] = res
  
-    return 
+    return res
 
 
 if __name__ == '__main__':
