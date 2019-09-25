@@ -2,26 +2,43 @@
 #Date Started: 190925
 
 def almostIncreasingSequence(sequence):
-    prev = sequence[0]
-    dec = None
+
     
     # Seq 1
+    prev = sequence[0]
     i = 1
-    if len(sequence) > 1:
-        while i < len(sequence) and sequence[i] > sequence[i - 1]:
-            i += 1
-            
-        if i == len(sequence):
-            return True
+    while i < len(sequence) and sequence[i] > prev:
+        prev = sequence[i]
+        i += 1
+
+    prevRev = sequence[-1]
+    j = 2
+    while j < 1 + len(sequence) and sequence[-j] < prevRev:
+        prevRev = sequence[-j]
+        j += i
+
+    # j = 1, i = len(seq) - 1
+    # i = len(seq) - j => j_prime
+    j_prime = len(sequence) - j
+
+    print("i: {} j_prime: {}".format(i, j_prime))
+
+     
+
         
-        j = i + 1
-        while j < len(sequence) and sequence[j] > sequence[j - 1]:
-            j += i
-            
-        if j != len(sequence):
-            return False
-        
-        if sequence[i] <= sequence[i - 2] and sequence[i - 1] <= sequence[i + 1]:
-            return False
-        
-    return True
+    return i == j_prime + 1
+
+if __name__ == '__main__':
+    import os
+    from cs_utils import *
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    seq = list_string_to_list(input())
+
+    print("input: {}".format(seq))
+
+
+    fptr.write(str(almostIncreasingSequence(seq)))
+    fptr.write('\n')
+
+    fptr.close()
