@@ -9,21 +9,23 @@ import sys
 
 # Complete the palindromeIndex function below.
 def palindromeIndex(s):
-    remove = -1
+    def checkforpalindrome(s):
+        return list(s) == list(reversed(s))
+    
     left = 0
     right = len(s) - 1
 
     while left < right:
         if s[left] != s[right]:
-            if s[left + 1] == s[right]:
-                remove = left
-                left += 1
-            elif s[left] == s[right - 1]:
-                remove = right
-                right -= 1
+            if checkforpalindrome(s[left + 1:right + 1]):
+                return left
+            if checkforpalindrome(s[left:right]):
+                return right
+
         left += 1
-        right -= 1 
-    return remove
+        right -= 1
+                
+    return -1
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
