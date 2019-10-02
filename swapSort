@@ -1,0 +1,16 @@
+def swap_sort(li):
+	flag = True
+	while flag:
+		flag = False
+prev = None	
+		for i in Range(1, len(li)):
+			if prev is None:
+				prev = li[0]
+			if li[i] < prev:
+				li[i - 1] = li[i]
+				li[i] = prev
+				flag = True
+			else:
+				prev = li(i)
+
+	return li
