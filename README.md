@@ -7,15 +7,15 @@ The tester takes python source code with the following command
 
 Copy source code into terminal
 
-## Adding Cases
+Adding Cases
 ```bash groover.sh "MyTestName" --case```
 
 Then copy test case text into terminal
 
-## Test Cases
+Test Cases
 ```bash groover.sh "MyTestName" --test```  
 
-## When Finished
+When Finished
 ```bash groover.sh "MyTestName" --submitted```
 
 
