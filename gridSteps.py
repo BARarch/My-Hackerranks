@@ -60,34 +60,38 @@ if __name__ == "__main__":
     #pt = translatePoint(8, 12, [6, 6, 6, 6, 6, 6, 6, 6,])
     #print(gridWalks(8, 12, 12, pt))
 
+    H = {}
     print("\nd = 2, n = 4, m = 2")
     print('Corner')
-    pt = translatePoint(2, 4, [0,0])
+    pt = translatePoint(2, 4, [0, 0])
     print(pt)
     print(gridWalks(2, 4, 2, pt))
 
     print('\nCenter') 
-    pt = translatePoint(2, 4, [2,2])
+    pt = translatePoint(2, 4, [2, 2])
     print(pt)
     print(gridWalks(2, 4, 2, pt))
+    print("Hases: " + str(len(H)))
 
-    #print("\nd = 4, n = 10, m = 10")
-    #print('Corner')
-    #pt = translatePoint(4, 10, [0,0,0,0])
-    #print(gridWalks(4, 10, 10, pt))
+    H = {}
+    print("\nd = 4, n = 10, m = 10")
+    print('Corner')
+    pt = translatePoint(4, 10, [0, 0, 0, 0])
+    print(gridWalks(4, 10, 10, pt))
 
-    #print('\nCenter') 
-    #pt = translatePoint(4, 10, [5,5,5,5])
-    #print(gridWalks(4, 10, 10, pt))
+    print('\nCenter') 
+    pt = translatePoint(4, 10, [5, 5, 5, 5])
+    print(gridWalks(4, 10, 10, pt))
+    print("Hases: " + str(len(H)))
 
-    #print("\nd = 8, n = 12, m = 12")
-    #print("Corner")
-    #pt = translatePoint(8, 12, [0, 0, 0, 0, 0, 0, 0, 0])
-    #print(gridWalks(8, 12, 12, pt))
+    H = {}
+    print("\nd = 8, n = 12, m = 12")
+    print("Corner")
+    pt = translatePoint(8, 12, [0, 0, 0, 0, 0, 0, 0, 0])
+    print(gridWalks(8, 12, 12, pt))
 
-    #print("\nCenter")
-    #pt = translatePoint(8, 12, [6, 6, 6, 6, 6, 6, 6, 6])
-    #print(gridWalks(8, 12, 12, pt))
+    print("\nCenter")
+    pt = translatePoint(8, 12, [6, 6, 6, 6, 6, 6, 6, 6])
+    print(gridWalks(8, 12, 12, pt))
 
-    print(H)
-    print(len(H))
+    print("Hases: " + str(len(H)))
