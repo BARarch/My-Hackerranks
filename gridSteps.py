@@ -53,45 +53,74 @@ def gridWalks(d, n, m, start):
 
 
 if __name__ == "__main__":
+    # The description case: d = 2, m = 3, n = 2
+    # This script only works in even m so I changed it to 4 to test
     H = {}
-    #print(translatePoint(4, 10, [5, 5, 5, 5]))
-    #print(list(steps(4, 10, [9 ,9,9,9])))
-
-    #pt = translatePoint(8, 12, [6, 6, 6, 6, 6, 6, 6, 6,])
-    #print(gridWalks(8, 12, 12, pt))
-
-    H = {}
-    print("\nd = 2, n = 4, m = 2")
-    print('Corner')
+    print("\nd = 2, n = 4, m = 2 to Check")
+    print('Corner: Should be 6' )
     pt = translatePoint(2, 4, [0, 0])
-    print(pt)
     print(gridWalks(2, 4, 2, pt))
 
-    print('\nCenter') 
+    print('\nCenter: Should be 14') 
     pt = translatePoint(2, 4, [2, 2])
-    print(pt)
+    
     print(gridWalks(2, 4, 2, pt))
-    print("Hases: " + str(len(H)))
+    print("Hashes: " + str(len(H)))
 
+    # Problem 1
     H = {}
+    D = 4
+    N = 10
+    M = 10
     print("\nd = 4, n = 10, m = 10")
-    print('Corner')
-    pt = translatePoint(4, 10, [0, 0, 0, 0])
-    print(gridWalks(4, 10, 10, pt))
+    print('Corner: Problem 1')
+    pt = translatePoint(D, N, [0, 0, 0, 0])
+    NwalksCorner  = gridWalks(D, N, M, pt)
+    print(NwalksCorner)
 
     print('\nCenter') 
-    pt = translatePoint(4, 10, [5, 5, 5, 5])
-    print(gridWalks(4, 10, 10, pt))
-    print("Hases: " + str(len(H)))
+    pt = translatePoint(D, N, [5, 5, 5, 5])
+    print(gridWalks(D, N, M, pt))
+
+    ## Problem 2 and 3
+    import numpy as np
+    from itertools import product
+    print('\nFull Distribution: Problems 2 and 3')
+    dist = list(map(lambda x: gridWalks(D, N, M, list(x)), product(range(1, N, 2), repeat=D)))
+    arr = np.array(dist)
+    #print(dist)
+    print("Min: {}".format(arr.min()))
+    print("Max: {}".format(arr.max()))
+    print("\nThe Ratio: ")
+    print(arr.max() / arr.min())
+    print("\nStandard Devation to Mean")
+    print(arr.std() / arr.mean())
+    print("Hashes: {}".format(len(H)))
 
     H = {}
+    D = 8
+    N = 12
+    M = 12
+    ## Problem 4
     print("\nd = 8, n = 12, m = 12")
-    print("Corner")
-    pt = translatePoint(8, 12, [0, 0, 0, 0, 0, 0, 0, 0])
-    print(gridWalks(8, 12, 12, pt))
+    print('Corner: Problem 4')
+    pt = translatePoint(D, N, [0, 0, 0, 0, 0, 0, 0, 0])
+    print(gridWalks(D, N, M, pt))
 
     print("\nCenter")
-    pt = translatePoint(8, 12, [6, 6, 6, 6, 6, 6, 6, 6])
-    print(gridWalks(8, 12, 12, pt))
+    pt = translatePoint(D, N, [6, 6, 6, 6, 6, 6, 6, 6])
+    print(gridWalks(D, N, M, pt))
 
-    print("Hases: " + str(len(H)))
+    
+    ## Problem 5 and 6
+    print('\nFull Distribution: Problems 5 and 6')
+    dist = list(map(lambda x: gridWalks(D, N, M, list(x)), product(range(1, N, 2), repeat=D)))
+    arr = np.array(dist)
+    #print(dist)
+    print("Min: {}".format(arr.min()))
+    print("Max: {}".format(arr.max()))
+    print("\nThe Ratio: ")
+    print(arr.max() / arr.min())
+    print("\nStandard Devation to Mean")
+    print(arr.std() / arr.mean())
+    print("Hashes: {}".format(len(H)))
