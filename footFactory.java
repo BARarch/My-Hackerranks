@@ -21,11 +21,8 @@ interface Food {
                 return new Cake();
             }
             return new Pizza();
-            
-            
-//Write your code here
 
-}//End of getFood method
+        }//End of getFood method
 
 	}//End of factory class
 
