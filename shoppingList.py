@@ -42,6 +42,9 @@ def getNumberOfOptions(priceOfJeans, priceOfShoes, priceOfSkirts, priceOfTops, b
 
         nItems = 0
         for cost in pJeans:
+            if b - cost < 0:
+                J[b] = nItems
+                return nItems
             nItems += shoes(b - cost)
         J[b] = nItems
         return nItems
@@ -54,6 +57,9 @@ def getNumberOfOptions(priceOfJeans, priceOfShoes, priceOfSkirts, priceOfTops, b
 
         nItems = 0
         for cost in pShoes:
+            if b - cost < 0:
+                SH[b] = nItems
+                return nItems
             nItems += skirts(b - cost)
         SH[b] = nItems
         return nItems
@@ -66,6 +72,9 @@ def getNumberOfOptions(priceOfJeans, priceOfShoes, priceOfSkirts, priceOfTops, b
 
         nItems = 0
         for cost in pSkirts:
+            if b - cost < 0:
+                SK[b] = nItems
+                return nItems
             nItems += tops(b - cost)
         SK[b] = nItems
         return nItems
