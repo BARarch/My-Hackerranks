@@ -1,7 +1,3 @@
-def circleOfNumbers(n, firstNumber):
-    return (firstNumber + n // 2) % n 
-
-
 def isIPv4Address(inputString):
     count = 0
     for address in inputString.split("."):
