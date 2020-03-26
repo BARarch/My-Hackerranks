@@ -19,7 +19,31 @@ import sys
 #
 
 def compressedString(message):
-    # Write your code here
+    res = ''
+    prev = None
+    Bundle = False
+    for c in message:
+        if c == prev and not Bundle:
+            N = 2
+            Bundle = True
+        elif c == prev and Bundle:
+            N += 1
+        elif Bundle:
+            Bundle = False
+            res += prev + str(N)
+        else:
+            if prev is not None:
+                res += prev
+
+        prev = c
+    ## End States
+    if Bundle:
+        res += prev + str(N)
+    else:
+        if prev is not None:
+            res += prev
+    
+    return res
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
