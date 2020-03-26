@@ -9,11 +9,6 @@ import random
 import re
 import sys
 
-
-
-#
-# Complete the 'balancedOrNot' function below.
-#
 # The function is expected to return an INTEGER_ARRAY.
 # The function accepts following parameters:
 #  1. STRING_ARRAY expressions
@@ -21,7 +16,35 @@ import sys
 #
 
 def balancedOrNot(expressions, maxReplacements):
-    # Write your code here
+    
+    def balancedHelp(expression, maxReplacement):
+        openn = 0
+        closedd = 0
+
+        for c in expression:
+            if c == "<":
+                openn += 1
+
+            if c == ">":
+                closedd += 1
+
+            if closedd > openn:
+                if maxReplacement > 0:
+                    maxReplacement -= 1
+                    closedd -= 1
+                else:
+                    return 0
+
+        if openn == closedd:
+            return 1
+        else:
+            return 0
+
+    res = []
+    for expr, maxR in zip(expressions, maxReplacements):
+        res.append(balancedHelp(expr, maxR))
+
+    return res
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
