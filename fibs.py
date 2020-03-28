@@ -1,18 +1,30 @@
 #!/Users/anthonyquivers/anaconda3/bin/python
 #Date Started: 200328
 
-def palandrome3(n):
-    def reverse(s): 
-        str = "" 
-        for i in s: 
-            str = i + str
-        return str
+def fibs():
+    a = 0
+    yield a
+    b = 1
+    yield b
 
-    return int(reverse(str(n)) + str(n))
+    while True:
+        res = a + b
+        a = b
+        b = res
+        yield res
 
+def testFibs(n):
+    f = fibs()
+    #for i in range(n):
+    odds = 0
+    curr = next(f)
+    while curr < n:
+        if curr % 2:
+            odds += curr
+        curr = next(f)
+    return odds
 
-def sumPalendromes():
-    return sum(map(palandrome3, range(100)))
+    
     
 
 
@@ -26,7 +38,7 @@ if __name__ == '__main__':
     #b = int(input())
 
 
-    fptr.write(str(sumPalendromes()))
+    fptr.write(str(testFibs(a)))
     fptr.write('\n')
 
     fptr.close()
