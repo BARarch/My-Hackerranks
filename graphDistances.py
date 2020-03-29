@@ -1,22 +1,18 @@
 #!/Users/anthonyquivers/anaconda3/bin/python
 #Date Started: 200328
 def graphDistances(g, s):
-    infinity = 31 
+    infinity = "inf"
 
     def weight(i, j):
         return g[i][j]
 
     def find_mininum(g, selected, remaining, distances):
-        minn = (None, infinity)
+        minn = (None, 31)
         for v in remaining:
-            if weight(selected, v) <= minn[1]:
-                minn = (v, weight(selected, v))
+            if distances[v] != 'inf':
+                if distances[v] <= minn[1]:
+                    minn = (v, distances[v])
         return minn
-
-    #Edit diagonals from -1 to 0
-    for c, row in enumerate(g):
-        if row[c] == -1:
-            row[c] = 0
 
     g[s][s] = 0
 
@@ -32,17 +28,32 @@ def graphDistances(g, s):
     
     d = g[s]
 
-    addedDistance = 0
+    '''
+    for row in g:
+        print("\t" * 2 + "\t".join(map(str, row)))
+    print("selected |  \t" + "\t".join(map(str, range(len(g)))))
+    print("------------" + "--------" * len(g) )
+    print(" " + str(s) + " \t |  \t" + "\t".join(map(str, d)), end='\t')
+    '''
     while R:
         # Update values for distances
         s, w = find_mininum(g, s, R, d)
-        addedDistance += w
         S.add(s)
         R = R.difference(S)
+        #print("min:\t" + str(w) + "\tadded:  "+ str(w))
         for v in R:
-            d[v] = min(d[v], addedDistance + weight(s, v))
+            current = d[v]
+            weightFromSelected = weight(s, v)
+            if current == 'inf':
+                if weightFromSelected != 'inf':
+                    d[v] = w + weightFromSelected
+            elif weightFromSelected != 'inf':
+                d[v] = min(current, w + weightFromSelected)
+    '''                
+        print(" " + str(s) + " \t |  \t" + "\t".join(map(str, d)), end='\t')
 
-
+    print()  
+    '''
     return d
 
 
