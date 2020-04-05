@@ -3,7 +3,7 @@
 
 def isPower(n):
     from itertools import count
-    print('Testing {}: '.format(n))
+    #print('Testing {}: '.format(n))
     if n == 1 or n == 0:
         return True
 
