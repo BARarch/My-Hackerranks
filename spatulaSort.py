@@ -1,6 +1,10 @@
 #!/Users/anthonyquivers/anaconda3/bin/python
 #Date Started: 200419
 
+def cookSort(R, S):
+
+    return (R - 1) * (S - 1)
+
 if __name__ == '__main__':
     import os
     from cs_utils import *
@@ -10,7 +14,7 @@ if __name__ == '__main__':
     H = {}
 
     for n in range(N):
-        x, y = map(int, input().split(' '))
-        print("Case #{}: {}".format(n + 1, jumpStick(x, y)))
+        R, S = map(int, input().split(' '))
+        print("Case #{}: {}".format(n + 1, cookSort(R, S)))
 
     fptr.close()
