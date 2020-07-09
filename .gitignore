@@ -2,3 +2,4 @@ __pycache__/
 a.out
 bash-pipe/
 .vscode/
+qtimer/
