@@ -1,1 +1,0 @@
-["africa", "america", "australia", "antarctica"]
