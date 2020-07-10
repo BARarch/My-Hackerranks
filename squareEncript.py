@@ -13,12 +13,12 @@ import qtimer
 @qtimer.timeit
 def encryption(s):
     def square_encryption(s, r, c):
-        def rowIter(chunk):
-            print(chunk)
-            for s in chunk:
-                yield s
-
         def matrixIterator(s, r, c):
+            def rowIter(chunk):
+                print(chunk)
+                for s in chunk:
+                    yield s
+
             for U in zip(*[rowIter(s[x * c:(x + 1) * c]) for x in range(r)]):
                 yield U
 
