@@ -1,0 +1,1 @@
+# The magesty of generators
