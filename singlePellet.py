@@ -18,10 +18,10 @@ def singlePellet(n):
     def steps(c):
         return c[1]
 
-    H = {n}
+    H = {int(n)}
     from collections import deque
     q = deque([
-        (n, 0),
+        (int(n), 0),
     ])
     print("width: {}".format(len(str(n))))
 
@@ -50,5 +50,5 @@ def singlePellet(n):
 
 
 if __name__ == "__main__":
-    n = int(input())
+    n = input()
     print(singlePellet(n))
