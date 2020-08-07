@@ -8,10 +8,38 @@ import re
 import sys
 import qtimer
 
+
 # Complete the function below.
 @qtimer.timeit
 def minimumMoves(s, d):
-    # Write your code here
+    from collections import deque
+    s = deque(s)
+    n = d
+    d = 1 << d
+    f = 0
+    res = 0
+    ## Initialize Comparison Fields
+    for _ in range(n):
+        f << 1
+        f += int(s.popleft())
+
+    while s:
+        #print(f)
+        if f == 0:
+            f = 1
+            res += 1
+
+        f <<= 1
+        f += int(s.popleft())
+        f %= d
+
+    ##Last One
+    #print(f)
+    if f == 0:
+        res += 1
+
+    return res
+
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
