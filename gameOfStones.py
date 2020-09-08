@@ -8,10 +8,16 @@ import re
 import sys
 import qtimer
 
+
 # Complete the function below.
 @qtimer.timeit
 # Complete the gameOfStones function below.
 def gameOfStones(n):
+    if n % 7 == 0 or n % 7 == 1:
+        return "Second"
+    else:
+        return "First"
+
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
