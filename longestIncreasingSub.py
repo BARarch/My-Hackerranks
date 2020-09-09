@@ -15,25 +15,27 @@ def longestIncreasingSubsequence(arr):
     def get_pos(num, arr):
         def get_pos_help(num, arr, start, stop):
             mid = (start + stop) // 2
-            if num < arr[mid]:
+            if num == arr[mid]:
+                return mid
+            elif num < arr[mid]:
                 return get_pos_help(num, arr, start, mid)
             elif num > arr[mid]:
                 return get_pos_help(num, arr, mid, stop)
-            elif start == mid or stop == mid:
-                return mid
-            else:
-                return mid
 
         return get_pos_help(num, arr, 0, len(arr))
 
+    #print(len(arr))
     sortedArr = list(set(sorted(arr)))
     longestSeq = [-1] * len(sortedArr)
     maxx = 0
+    #print(len(arr))
+    #print(arr)
+    #print(len(sortedArr))
 
     for num in arr:
         pos = get_pos(num, sortedArr)
-        curr = pos
-        while curr >= 0 and (longestSeq[curr] == -1 or sortedArr[curr] == num):
+        curr = pos - 1
+        while curr >= 0 and longestSeq[curr] == -1:
             curr -= 1
 
         if curr == -1:
