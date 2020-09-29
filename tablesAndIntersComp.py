@@ -8,21 +8,12 @@ import re
 import sys
 import qtimer
 
+
 # Complete the function below.
 @qtimer.timeit
 def count_a_probability(chars, N, K):
-    nCombinations = 0
-    nAInCombination = 0
-    for combination in combinations(chars, K):
-        nCombinations += 1
-        if 'a' in combination:
-            nAInCombination += 1
-
     combs = list(combinations(chars, K))
-    print(len(list(filter(lambda x: 'a' in x, combs)) / len(combs))
-
-    print(nAInCombination / nCombinations)
-    
+    print(len(list(filter(lambda x: 'a' in x, combs))) / len(combs))
 
 
 if __name__ == "__main__":

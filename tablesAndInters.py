@@ -20,10 +20,8 @@ def count_a_probability(chars, N, K):
             nAInCombination += 1
 
     combs = list(combinations(chars, K))
-    print(len(list(filter(lambda x: 'a' in x, combs)) / len(combs))
-
+    print(len(list(filter(lambda x: 'a' in x, combs)) / len(combs)))
     print(nAInCombination / nCombinations)
-    
 
 
 if __name__ == "__main__":
