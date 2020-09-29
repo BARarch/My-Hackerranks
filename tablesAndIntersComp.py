@@ -8,7 +8,6 @@ import re
 import sys
 import qtimer
 
-
 # Complete the function below.
 @qtimer.timeit
 def count_a_probability(chars, N, K):
