@@ -8,14 +8,24 @@ import re
 import sys
 import qtimer
 
+
 # Complete the function below.
 @qtimer.timeit
-import math
-import os
-import random
-import re
-import sys
-import qtimer
+def count_a_probability(chars, N, K):
+    nCombinations = 0
+    nAInCombination = 0
+    for combination in combinations(chars, K):
+        nCombinations += 1
+        if 'a' in combination:
+            nAInCombination += 1
+
+    print(nAInCombination / nCombinations)
 
 
-# Complete the function below.
+if __name__ == "__main__":
+    from itertools import combinations
+    N = int(input())
+    chars = input().split(" ")
+    K = int(input())
+
+    count_a_probability(chars, N, K)
