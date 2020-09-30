@@ -19,8 +19,6 @@ def count_a_probability(chars, N, K):
         if 'a' in combination:
             nAInCombination += 1
 
-    combs = list(combinations(chars, K))
-    print(len(list(filter(lambda x: 'a' in x, combs)) / len(combs)))
     print(nAInCombination / nCombinations)
 
 

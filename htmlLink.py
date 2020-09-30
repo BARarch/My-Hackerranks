@@ -12,13 +12,24 @@ import qtimer
 # Complete the function below.
 @qtimer.timeit
 def htmlLink(text):
-    soup = BeautifulSoup(text, features="lxml")
+    soup = BeautifulSoup(text, features="html.parser")
     links = soup.select('a')
 
     for link in links:
-        ref = link['href']
-        content = link.contents[0]
-        print(f'{ref},{content}')
+        ref = link['href'].replace("&", "&amp;")
+        content = link.string
+        if content:
+            print(f'{ref},{str(content).strip()}')
+        else:
+            print(f'{ref},')
+        #if link.contents:
+        #    content = link.string
+        #    if len(content):
+        #        print(f'{ref},{content}')
+        #    else:
+        #        print(f'{ref},')
+        #else:
+        #    print(f'{ref},')
 
 
 if __name__ == "__main__":

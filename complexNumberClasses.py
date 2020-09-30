@@ -14,8 +14,11 @@ import math
 
 class Complex(object):
     def __init__(self, real, imaginary):
+        self.real = real
+        self.imaginary = imaginary
         
     def __add__(self, no):
+        
         
     def __sub__(self, no):
         
