@@ -28,7 +28,7 @@ def quickSort(arr):
         if lo < hi - 1:
             p = partition(arr, lo, hi)
             quickSortHelp(arr, lo, p)
-            quickSortHelp(arr, p + 1, hi)q
+            quickSortHelp(arr, p + 1, hi)
         #print(arr)
 
     quickSortHelp(arr, 0, len(arr))
