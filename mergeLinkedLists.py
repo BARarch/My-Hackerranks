@@ -9,11 +9,13 @@ import sys
 import qtimer
 
 # Complete the function below.
-@qtimer.timeit
+
+
 class SinglyLinkedListNode:
     def __init__(self, node_data):
         self.data = node_data
         self.next = None
+
 
 class SinglyLinkedList:
     def __init__(self):
@@ -28,10 +30,11 @@ class SinglyLinkedList:
         else:
             self.tail.next = node
 
-
         self.tail = node
 
+
 def print_singly_linked_list(node, sep, fptr):
+    print(type(node))
     while node:
         fptr.write(str(node.data))
 
@@ -39,7 +42,10 @@ def print_singly_linked_list(node, sep, fptr):
 
         if node:
             fptr.write(sep)
+
+
 # Complete the mergeLists function below.
+
 
 #
 # For your reference:
@@ -49,7 +55,36 @@ def print_singly_linked_list(node, sep, fptr):
 #     SinglyLinkedListNode next
 #
 #
+@qtimer.timeit
 def mergeLists(head1, head2):
+    # Lets merge into head1
+
+    curr1 = head1
+    curr2 = head2
+    res = SinglyLinkedList()
+
+    while curr1 and curr2:
+        if curr1.data < curr2.data:
+            ## append curr1.data
+            res.insert_node(curr1.data)
+            ## advance curr1 pointer
+            curr1 = curr1.next
+        else:
+            ## append curr2.data
+            res.insert_node(curr2.data)
+            ## advance curr2.data
+            curr2 = curr2.next
+
+    while curr1:
+        res.insert_node(curr1.data)
+        curr1 = curr1.next
+
+    while curr2:
+        res.insert_node(curr2.data)
+        curr2 = curr2.next
+
+    return res.head
+
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
@@ -64,7 +99,7 @@ if __name__ == '__main__':
         for _ in range(llist1_count):
             llist1_item = int(input())
             llist1.insert_node(llist1_item)
-            
+
         llist2_count = int(input())
 
         llist2 = SinglyLinkedList()
