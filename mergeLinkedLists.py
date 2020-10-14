@@ -57,7 +57,6 @@ def print_singly_linked_list(node, sep, fptr):
 #
 @qtimer.timeit
 def mergeLists(head1, head2):
-    # Lets merge into head1
 
     curr1 = head1
     curr2 = head2
