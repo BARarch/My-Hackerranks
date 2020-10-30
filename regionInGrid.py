@@ -8,9 +8,65 @@ import re
 import sys
 import qtimer
 
+
 # Complete the function below.
 @qtimer.timeit
 def connectedCell(matrix):
+    def neighbors(x, y):
+        ## Top Row
+        if x > 0 and y > 0:
+            yield x - 1, y - 1
+        if y > 0:
+            yield x, y - 1
+        if x + 1 < len(matrix[0]) and y > 0:
+            yield x + 1, y - 1
+        ## Middle
+        if x > 0:
+            yield x - 1, y
+        if x + 1 < len(matrix[0]):
+            yield x + 1, y
+        ## Bottom Row
+        if x > 0 and y + 1 < len(matrix):
+            yield x - 1, y + 1
+        if y + 1 < len(matrix):
+            yield x, y + 1
+        if x + 1 < len(matrix[0]) and y + 1 < len(matrix):
+            yield x + 1, y + 1
+
+    ones = set()
+    for i, row in enumerate(matrix):
+        for j, val in enumerate(row):
+            if val:
+                ones.add((j, i))
+
+    largest = 0
+    while ones:
+        currentRegion = [ones.pop()]
+        currentSize = 1
+        while currentRegion:
+            cell = currentRegion.pop(0)
+            for neighbor in neighbors(*cell):
+                if neighbor in ones:
+                    currentRegion.append(neighbor)
+                    currentSize += 1
+                    ones.remove(neighbor)
+
+        if currentSize > largest:
+            largest = currentSize
+    '''while ones:
+        currentRegion = [ones.pop()]
+        currentSize = 1
+        while currentRegion:
+            cell = currentRegion.pop(0)
+            if cell in ones:
+                currentSize += 1
+                ones.remove(cell)
+            for neighbor in neighbors(*cell):
+                if neighbor in ones:
+                    currentRegion.append(neighbor)'''
+
+    return largest
+
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
