@@ -8,15 +8,21 @@ import re
 import sys
 import qtimer
 
+cube = lambda x: x**3  # complete the lambda function
+
+
 # Complete the function below.
 @qtimer.timeit
-cube = lambda x: x ** 3 # complete the lambda function 
-
 def fibonacci(n):
     if n <= 1:
-        return n
-    return fibonacci(n - 1) + fibonacci(n - 2)
+        return list(range(n))
+
+    res = list(range(2))
+    for i in range(n - 2):
+        res.append(res[-2] + res[-1])
+    return res
     # return a list of fibonacci numbers
+
 
 if __name__ == '__main__':
     n = int(input())
