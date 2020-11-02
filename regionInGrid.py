@@ -53,17 +53,6 @@ def connectedCell(matrix):
 
         if currentSize > largest:
             largest = currentSize
-    '''while ones:
-        currentRegion = [ones.pop()]
-        currentSize = 1
-        while currentRegion:
-            cell = currentRegion.pop(0)
-            if cell in ones:
-                currentSize += 1
-                ones.remove(cell)
-            for neighbor in neighbors(*cell):
-                if neighbor in ones:
-                    currentRegion.append(neighbor)'''
 
     return largest
 
