@@ -8,14 +8,18 @@ import re
 import sys
 import qtimer
 
-# Complete the function below.
-@qtimer.timeit
 from fractions import Fraction
 from functools import reduce
 
+# Complete the function below.
+from operator import mul
+
+
+@qtimer.timeit
 def product(fracs):
-    t = # complete this line with a reduce statement
+    t = reduce(mul, fracs)
     return t.numerator, t.denominator
+
 
 if __name__ == '__main__':
     fracs = []
