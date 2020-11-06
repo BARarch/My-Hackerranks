@@ -8,9 +8,34 @@ import re
 import sys
 import qtimer
 
+
 # Complete the function below.
 @qtimer.timeit
 def gridSearch(G, P):
+
+    for i, row in enumerate(G):
+        if P[0] in row:
+            starts = get_starts(row, P[0])
+
+            for start in starts:
+                j = 1
+                while G[i + j][start:start + len(P[j])] == P[j]:
+                    j += 1
+                    if j == len(P):
+                        return "YES"
+
+    return 'NO'
+
+
+def get_starts(S, p):
+    start = 0
+    res = []
+    while start < len(S):
+        if p == S[start:start + len(p)]:
+            res.append(start)
+        start += 1
+    return res
+
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
