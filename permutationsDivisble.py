@@ -9,12 +9,18 @@ import sys
 import qtimer
 
 # Complete the function below.
-@qtimer.timeit
-import os
-import sys
+from itertools import permutations
 
-# Complete the solve function below.
+
+@qtimer.timeit
 def solve(n):
+    if n == '0':
+        return 'YES'  ## Stompper !
+    for perm in permutations(n, 3 if len(n) > 3 else len(n)):
+        if bin(int(''.join(perm)))[-3:] == '000':
+            return 'YES'
+    return 'NO'
+
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
