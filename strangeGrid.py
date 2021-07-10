@@ -1,5 +1,7 @@
 ## The strange grid problem
 
+import os
+
 def strangeGrid(r, c):
     if r % 2 == 0:
         ## Even row odd results
