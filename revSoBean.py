@@ -41,6 +41,7 @@ if __name__ == "__main__":
 ##    for _ in range(N): 
     llist = SinglyLinkedList()
     #n = int(input())
+    
     rec =  map( llist.insert_node, map(int, input().split(" ")))
     print_singly_linked_list(llist.head, ", ")
         
