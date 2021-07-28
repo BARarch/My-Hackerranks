@@ -14,3 +14,10 @@ def primesSum(a, b):
     return sum(filter(lambda x: all(x % i for i in range(2, int(x**0.5) + 1)), range(max(2, a), b+1)))
 
 ## Generatorsp
+
+## Higher Order Functions
+
+## Classes
+I learned somthing new.  I'm an old dog that can be taught new tricks.  Its just more painful and takes longer. For the life of me I could not figure out how this property was referenced in a method without it
+being computed in the initialization method.  I could make another method, but the method is not calling it.
+Basically all I had to add was the @property decorator to that method I created and an attribute named after that function will be created.  I guess the rest of this exercise will have little nuances like this.  Then again I have been writing code for interviews, I wish I could do more real code and less dynamic programming.  It is kind of mental.  Then again I want an actual salary high enough to by housing on the market.
