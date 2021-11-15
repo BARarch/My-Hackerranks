@@ -31,6 +31,9 @@ def flippingMatrix(matrix):
             if sum(row[n:]) > sum(row[:n]):
                 row.reverse()
                 swaps += 1
+
+        for row in matrix
+            print(matrix)
          
                 
     res = 0
@@ -41,10 +44,10 @@ def flippingMatrix(matrix):
 
 
     ''' Input
-    1
-    2
-    112 42 83 119
-    56 125 56 49
-    15 78 101 43
-    62 98 114 108 
+1
+2
+112 42 83 119
+56 125 56 49
+15 78 101 43
+62 98 114 108 
     '''
