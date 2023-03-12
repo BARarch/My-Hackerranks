@@ -8,6 +8,7 @@ This code is for LeetCode X
 ## 1. Min on Left
 def min_on_left(height):
     print('Doing min_on_left')
+
     def try_min_to_the_left(height):        
         res = 0
         for i, h in enumerate(height):      
@@ -25,6 +26,7 @@ def min_on_left(height):
     return res
 
 ## 1A. Min on Left with Memoization
+## !! This one passes on LeetCode it is fast enough !!
 def min_on_left_memoized(height):
     print('Doing min_on_left with Memoization')          
     res = 0
