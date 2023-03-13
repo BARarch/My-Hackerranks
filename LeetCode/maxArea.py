@@ -104,15 +104,53 @@ def min_on_right(height):
 def pour_water(height):
     print('Doing poured water')
     # This one should be fun 
-    HeightIndecies = {}
-    for i, h in enumerate(height):          # Indeies of heights are sorted for each entry
-        if h in HeightIndecies:
+    ''' The guiding principle here is 
+        if there is a container of height h, 
+        there shall only be one
+        
+        I can start with the tallest two walls heights (hTallest and hSecondTallest).
+        The resulting container will be of height hSecondTallest.
+        I keep the bounds (leftMostContaiWall, rightMostContainerWall) to find the largest containers for each height.
+        
+        Iterate from the tallest to shortest wall '''
+
+    def generate_tallest(height):
+        ''' Create iterator that returns each wall hieght and thier index in a sequence
+            from the tallest to the shortest '''
+
+        from collections import defaultdict
+        HeightIndecies = defaultdict(lambda : [])
+        for i, h in enumerate(height):          # Indeies of heights are sorted for each height key
             HeightIndecies[h].append(i)
-        else:
-            HeightIndecies[h] = [h, ]
 
-
+        for h in reversed(sorted(height)):
+            yield HeightIndecies[h].pop(), h
+    
+    ''' Start Here '''
+    tallest = generate_tallest(height)
+    leftMostContainerWall, h = next(tallest)
+    rightMostContainerWall = leftMostContainerWall
     res = 0
+
+    ''' Here Goes GODSPEED! '''
+    for i, h in tallest:
+        if h * (len(height) - 1) < res:
+            print(f'{res} Stopped Short {h} wall hieght')        
+            return res
+        if i > rightMostContainerWall:
+            ## New Container if i is to the right of the right most container wall at this point
+            rightMostContainerWall = i
+            container = h * (i - leftMostContainerWall)
+        elif i < leftMostContainerWall:
+            ## New Container if i is to the left of the left most container wall at this point
+            leftMostContainerWall = i
+            container = h * (rightMostContainerWall - i)
+        
+        if container > res:
+            res = container
+
+        ''' Solution is accurate with Nlog(N) time complexity 
+            '''
     print(res)
     return res
 
