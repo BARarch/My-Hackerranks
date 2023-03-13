@@ -3,6 +3,25 @@ This code is for LeetCode X
 
 """
 
+def print_and_assign(x):
+    ''' Prints to stdio and returns value
+        '''
+    ''' I can display intermediate results for solution when they are done 
+        instead of waiting for all of them.  I can get fast reslts without 
+        printing the results before returning when I do asolutiuon function for
+        one of those index scounting problems 
+        '''
+    ''' res = max((try_min_to_the_left(height), try_min_to_the_left(list(reversed(height)))))
+        return res
+
+        BECOMES
+
+        return max((try_min_to_the_left(height), try_min_to_the_left(list(reversed(height))))) 
+        
+        '''
+    print(x)
+    return x
+
 ## 3 Methods: They in my brain might as well produce them all.
 
 ## 1. Min on Left
@@ -20,10 +39,8 @@ def min_on_left(height):
                     res = (j - i) * h
                 j -= 1 
         return res
-
-    res = max((try_min_to_the_left(height), try_min_to_the_left(list(reversed(height)))))
-    print(res)
-    return res
+    
+    return max((try_min_to_the_left(height), try_min_to_the_left(list(reversed(height)))))
 
 ## 1A. Min on Left with Memoization
 ## !! This one passes on LeetCode it is fast enough !!
@@ -49,7 +66,7 @@ def min_on_left_memoized(height):
                         res = temp_min_on_right
             j -= 1 
          
-    print(res)
+    
     return res
 
 ## 2. Min on Right: The moment method
@@ -69,11 +86,9 @@ def min_on_right(height):
         if (len(height) - j - 1) * h > resR:
             resR, minJ = (len(height) - j - 1) * h, j   # minimumIndex of maximum right moment
 
-    print(f'containerBounds ({minJ},{maxI})')
-    res = (maxI - minJ) * min([height[maxI], height[minJ]])
+    print(f'containerBounds ({minJ},{maxI})')  
+    return (maxI - minJ) * min([height[maxI], height[minJ]])
     
-    print(res)
-    return res
 '''    def collect_left_moments(height):
         res = 0
         MomentMaxIndex = {i * h:i for i, h in enumerate(height)}
@@ -135,7 +150,7 @@ def pour_water(height):
     ''' Here Goes GODSPEED! '''
     for i, h in tallest:
         if h * (len(height) - 1) < res:
-            print(f'{res} Stopped Short {h} wall hieght')        
+            print(f'Stopped Short {h} wall hieght')        
             return res
         if i > rightMostContainerWall:
             ## New Container if i is to the right of the right most container wall at this point
@@ -149,9 +164,18 @@ def pour_water(height):
         if container > res:
             res = container
 
-        ''' Solution is accurate with Nlog(N) time complexity 
+        ''' Solution is accurate with Nlog(N) time complexity Beats 90% in time and 95 in Memory
             '''
-    print(res)
+    return res
+
+## 4. Start on Each End: The fastest Solution
+def ends_first(height) -> int:
+    ''' This is the fastest algorithm I found on leetCode.  
+        I will implement it here. It has the same geometrical principle as my poured water
+        algrothm, in that there is only one maximal area container for a container of height h. 
+        Except we do a greedy search starting with the widest containers instead of the tallest. 
+        This does not require an NlogN search and is a liner algorithm.'''
+    res = 0
     return res
 
 def maxArea_original(self, height) -> int:
@@ -177,7 +201,7 @@ class Solution:
     def maxArea(self, height) -> int:
         print()
         print(f"Testing {height}")
-        MIN_ON_LEFT_RES, MEMO, MIN_ON_RIGHT_RES, POUR_WATER_RES  = [method(height) for method in [min_on_left, min_on_left_memoized, min_on_right, pour_water]]
+        MIN_ON_LEFT_RES, MEMO, MIN_ON_RIGHT_RES, POUR_WATER_RES  = [print_and_assign(method(height)) for method in [min_on_left, min_on_left_memoized, min_on_right, pour_water]]
 
         return MIN_ON_LEFT_RES
 
