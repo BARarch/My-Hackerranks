@@ -170,8 +170,15 @@ def maxArea_original(self, height) -> int:
         print("")                
         return currentlargestArea
 
-
-
+## 4. The Fastest Algorithm
+def ends_first(height) -> int:
+    ''' This is the fastest algorithm I found on leetCode.  
+        I will implement it here. It has the same geometrical principle as my poured water
+        algrothm, in that there is only one maximal area container for a container of height h. 
+        Except we do a greedy search starting with the widest containers instead of the tallest. 
+        This does not require an NlogN search and is a liner algorithm.'''
+    res = 0
+    return res
 
 class Solution:
     def maxArea(self, height) -> int:
