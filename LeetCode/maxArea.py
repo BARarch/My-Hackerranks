@@ -226,9 +226,7 @@ def ends_first(height) -> int:
             while height[j] <= hRight and j > left:
                 j -= 1
             right = j
-
-
-    
+ 
     return res
 
 class Solution:
