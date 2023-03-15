@@ -194,14 +194,50 @@ def maxArea_original(self, height) -> int:
         print("")                
         return currentlargestArea
 
+## 4. The Fastest Algorithm: Check from the ends move in
+def ends_first(height) -> int:
+    ''' This is the fastest algorithm I found on leetCode.  
+        I will implement it here. It has the same geometrical principle as my poured water
+        algrothm, in that there is only one maximal area container for a container of height h. 
+        Except we do a greedy search starting with the widest containers instead of the tallest. 
+        This does not require an NlogN search and is a liner algorithm.'''
+
+    print("Doing ends first")
+    res = 0
+
+    left, right = 0, len(height) - 1
+
+    while left < right:
+        #print(f'trying postions ({left}, {right})')
+        hLeft, hRight = height[left], height[right]
+        containerSize = min(hLeft, hRight) * (right - left)
+        if containerSize > res:
+            res = containerSize
+
+        if hLeft < hRight:
+            # Find a larger container by finding a higher left wall by checking to the right
+            i = left
+            while height[i] <= hLeft and i < right:
+                i += 1
+            left = i
+        else:
+            j = right
+            # Find a larger container by finding a higher right wall by checking to the left
+            while height[j] <= hRight and j > left:
+                j -= 1
+            right = j
 
 
+    
+    return res
 
 class Solution:
     def maxArea(self, height) -> int:
         print()
         print(f"Testing {height}")
-        MIN_ON_LEFT_RES, MEMO, MIN_ON_RIGHT_RES, POUR_WATER_RES  = [print_and_assign(method(height)) for method in [min_on_left, min_on_left_memoized, min_on_right, pour_water]]
+
+        MIN_ON_LEFT_RES, MEMO, MIN_ON_RIGHT_RES, POUR_WATER_RES, ENDS_RES  = [print_and_assign(method(height)) for method in [min_on_left, min_on_left_memoized, min_on_right, pour_water, ends_first]]
+
 
         return MIN_ON_LEFT_RES
 
