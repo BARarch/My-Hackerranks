@@ -3,6 +3,9 @@ This code is for LeetCode X
 
 """
 
+import qtimer
+
+
 def print_and_assign(x):
     ''' Prints to stdio and returns value
         '''
@@ -25,6 +28,7 @@ def print_and_assign(x):
 ## 3 Methods: They in my brain might as well produce them all.
 
 ## 1. Min on Left
+@qtimer.timeit
 def min_on_left(height):
     print('Doing min_on_left')
 
@@ -44,6 +48,7 @@ def min_on_left(height):
 
 ## 1A. Min on Left with Memoization
 ## !! This one passes on LeetCode it is fast enough !!
+@qtimer.timeit
 def min_on_left_memoized(height):
     print('Doing min_on_left with Memoization')          
     res = 0
@@ -70,6 +75,7 @@ def min_on_left_memoized(height):
     return res
 
 ## 2. Min on Right: The moment method
+@qtimer.timeit
 def min_on_right(height):
     print('Doing min_on_right: linear moment method')
     resL = 0
@@ -116,6 +122,7 @@ def min_on_right(height):
 
 
 ## 3. Pour Water Find the largest puddle
+@qtimer.timeit
 def pour_water(height):
     print('Doing poured water')
     # This one should be fun 
@@ -169,15 +176,7 @@ def pour_water(height):
     return res
 
 ## 4. Start on Each End: The fastest Solution
-def ends_first(height) -> int:
-    ''' This is the fastest algorithm I found on leetCode.  
-        I will implement it here. It has the same geometrical principle as my poured water
-        algrothm, in that there is only one maximal area container for a container of height h. 
-        Except we do a greedy search starting with the widest containers instead of the tallest. 
-        This does not require an NlogN search and is a liner algorithm.'''
-    res = 0
-    return res
-
+@qtimer.timeit
 def maxArea_original(self, height) -> int:
         currentlargestArea = 0
         N = len(height)
@@ -195,6 +194,7 @@ def maxArea_original(self, height) -> int:
         return currentlargestArea
 
 ## 4. The Fastest Algorithm: Check from the ends move in
+@qtimer.timeit
 def ends_first(height) -> int:
     ''' This is the fastest algorithm I found on leetCode.  
         I will implement it here. It has the same geometrical principle as my poured water
