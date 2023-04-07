@@ -38,7 +38,8 @@ def max_score(viable: Tuple[int], positionsToChoose: int, scores, viableContract
         
         return maxScore, result
 
-    return max_score_helper(viable, positionsToChoose)
+    maxScore, result = max_score_helper(viable, positionsToChoose)
+    return maxScore, list(reversed(result))
 
 
 if __name__ == "__main__":
@@ -66,9 +67,9 @@ if __name__ == "__main__":
                         {1,2,3,5,7,10},
                         {4,7}]
     
-    viable0 = tuple(range(1,11))
+    viable0 = tuple(range(1,12))
 
-    print(max_score(viable0, 10, scores0, viableContracts0))
+    print(max_score(viable0, 11, scores0, viableContracts0))
 
 
 
