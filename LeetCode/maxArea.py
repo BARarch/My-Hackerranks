@@ -235,12 +235,26 @@ class Solution:
         print(f"Testing {height}")
         MIN_ON_LEFT_RES, MEMO, MIN_ON_RIGHT_RES, POUR_WATER_RES, ENDS_RES  = [print_and_assign(method(height)) for method in [min_on_left, min_on_left_memoized, min_on_right, pour_water, ends_first]]
         return MIN_ON_LEFT_RES
+
+    @classmethod
+    def test_cases(cls):
+        assert cls.maxArea([1,8,6,2,5,4,8,3,7]) == 49  ## Min on Right
+        yield
+        assert cls.maxArea([1,1]) == 1
+        yield
+        assert cls.maxArea([2,1,3,1]) == 4       ## Min on LEFT
+        yield
+        assert cls.maxArea([1,1,1,1]) == 3       ## Min on LEFT
+        yield
+        assert cls.maxArea([1,2,2,1]) == 3       ## Min on LEFT
+        yield
+        assert cls.maxArea([1,6,6,1]) == 6       ## Min on LEFT``
     
 class Min_On_Left(Solution):    
     def maxArea(self, height) -> int:
         return print_and_assign(min_on_left)
 
-class Min_Oo_Right(Solution):
+class Min_On_Right(Solution):
     def maxArea(self, height) -> int:
         return print_and_assign(min_on_right)      
     
