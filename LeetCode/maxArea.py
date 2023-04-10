@@ -22,7 +22,7 @@ def print_and_assign(x):
         return max((try_min_to_the_left(height), try_min_to_the_left(list(reversed(height))))) 
         
         '''
-    print(x, end=" ")
+    print(x, end="\n")
     return x
 
 ## 3 Methods: They in my brain might as well produce them all.
@@ -235,7 +235,7 @@ class Solution:
 
     @classmethod
     def test_cases(cls):
-        cls.maxArea([1,8,6,2,5,4,8,3,7])  ## Min on Right
+        assert cls.maxArea([1,8,6,2,5,4,8,3,7]) == 49  ## Min on Right
         yield
         assert cls.maxArea([1,1]) == 1
         yield
@@ -272,21 +272,28 @@ def compose_tests(cls):
 # Tester
 def test_solution():
     ## Run Tests, set timers, compare answers with this class
-    Solutions = [Solution, MEMO, MIN_ON_RIGHT_RES, POUR_WATER_RES, ENDS_RES]
+    #Solutions = [Solution, MEMO, MIN_ON_RIGHT_RES, POUR_WATER_RES, ENDS_RES]
+    Solutions = [Solution, MEMO, POUR_WATER_RES, ENDS_RES]
     
     ### [min_on_left, min_on_left_memoized, min_on_right, pour_water, ends_first]
 
-    ## Zip them together to compare results
-    cases = zip(map(compose_tests, Solutions))
-    print(len(list(cases)))
+    
 
     cases2 = list()
     
-
+    print(len(Solutions))
     ## Finish all testcases per solution
     for soln in Solutions:
         for case in soln.test_cases():
             print('passed')
+        print()
+
+    ## Zip them together to compare results
+    for _ in zip(*[soln.test_cases() for soln in Solutions]):
+        print('passed')
+        #for case in cases:
+        #    print(case)
+        #    print('passed')
         print()
 
     
