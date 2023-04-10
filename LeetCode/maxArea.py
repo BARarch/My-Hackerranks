@@ -291,9 +291,6 @@ def test_solution():
     ## Zip them together to compare results
     for _ in zip(*[soln.test_cases() for soln in Solutions]):
         print('passed')
-        #for case in cases:
-        #    print(case)
-        #    print('passed')
         print()
 
     
