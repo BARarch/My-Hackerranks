@@ -28,7 +28,7 @@ def print_and_assign(x):
 ## 3 Methods: They in my brain might as well produce them all.
 
 ## 1. Min on Left
-@qtimer.timeit
+#@qtimer.timeit
 def min_on_left(height):
     print('Doing min_on_left')
 
@@ -122,7 +122,7 @@ def min_on_right(height):
 
 
 ## 3. Pour Water Find the largest puddle
-@qtimer.timeit
+#@qtimer.timeit
 def pour_water(height):
     print('Doing poured water')
     # This one should be fun 
@@ -175,7 +175,7 @@ def pour_water(height):
             '''
     return res
 
-@qtimer.timeit
+#@qtimer.timeit
 def maxArea_original(self, height) -> int:
         currentlargestArea = 0
         N = len(height)
@@ -193,7 +193,7 @@ def maxArea_original(self, height) -> int:
         return currentlargestArea
 
 ## 4. The Fastest Algorithm: Check from the ends move in
-@qtimer.timeit
+#@qtimer.timeit
 def ends_first(height) -> int:
     ''' This is the fastest algorithm I found on leetCode.  
         I will implement it here. It has the same geometrical principle as my poured water
@@ -230,10 +230,8 @@ def ends_first(height) -> int:
 
 class Solution:
     def maxArea(height) -> int:
-        print()
-        print(f"Testing {height}")
-        MIN_ON_LEFT_RES, MEMO, MIN_ON_RIGHT_RES, POUR_WATER_RES, ENDS_RES  = [print_and_assign(method(height)) for method in [min_on_left, min_on_left_memoized, min_on_right, pour_water, ends_first]]
-        return MIN_ON_LEFT_RES
+        #print(f"Testing {height}")
+        return print_and_assign(min_on_left(height))
 
     @classmethod
     def test_cases(cls):
@@ -249,16 +247,24 @@ class Solution:
         yield
         assert cls.maxArea([1,6,6,1]) == 6
         yield       ## Min on LEFT``
-    
-class Min_On_Left(Solution):    
+
+
+class MEMO(Solution):    
     def maxArea(height) -> int:
         return print_and_assign(min_on_left_memoized(height))
 
-class Min_On_Right(Solution):
+class MIN_ON_RIGHT_RES(Solution):    
     def maxArea(height) -> int:
-        return print_and_assign(min_on_right(height))     
-    
+        return print_and_assign(min_on_right(height))
 
+class POUR_WATER_RES(Solution):    
+    def maxArea(height) -> int:
+        return print_and_assign(pour_water(height))
+
+class ENDS_RES(Solution):    
+    def maxArea(height) -> int:
+        return print_and_assign(ends_first(height))
+   
 
 def compose_tests(cls):
     return cls.test_cases()
@@ -266,35 +272,29 @@ def compose_tests(cls):
 # Tester
 def test_solution():
     ## Run Tests, set timers, compare answers with this class
-    Solutions = [Solution, Min_On_Left, Min_On_Right]
+    Solutions = [Solution, MEMO, MIN_ON_RIGHT_RES, POUR_WATER_RES, ENDS_RES]
+    
+    ### [min_on_left, min_on_left_memoized, min_on_right, pour_water, ends_first]
 
-    cases = map(compose_tests, Solutions)
+    ## Zip them together to compare results
+    cases = zip(map(compose_tests, Solutions))
+    print(len(list(cases)))
 
-    print(cases)
+    cases2 = list()
+    
 
-    cs = Min_On_Left.test_cases()
+    ## Finish all testcases per solution
+    for soln in Solutions:
+        for case in soln.test_cases():
+            print('passed')
+        print()
 
-    for case in Min_On_Left.test_cases():
-        print('passed')
+    
 
-    print()
-    for case in Min_On_Right.test_cases():
-        print('passed')
 
-    '''solution = Solution()
-    def compose_test_cases(solution):
-        assert solution.maxArea([1,8,6,2,5,4,8,3,7]) == 49  ## Min on Right
-        yield
-        assert solution.maxArea([1,1]) == 1
-        yield
-        assert solution.maxArea([2,1,3,1]) == 4       ## Min on LEFT
-        yield
-        assert solution.maxArea([1,1,1,1]) == 3       ## Min on LEFT
-        yield
-        assert solution.maxArea([1,2,2,1]) == 3       ## Min on LEFT
-        yield
-        assert solution.maxArea([1,6,6,1]) == 6       ## Min on LEFT
-        '''
+
+
+    
 
 
 if __name__ == "__main__":
