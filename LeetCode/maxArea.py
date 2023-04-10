@@ -22,7 +22,7 @@ def print_and_assign(x):
         return max((try_min_to_the_left(height), try_min_to_the_left(list(reversed(height))))) 
         
         '''
-    print(x)
+    print(x, end=" ")
     return x
 
 ## 3 Methods: They in my brain might as well produce them all.
@@ -48,7 +48,7 @@ def min_on_left(height):
 
 ## 1A. Min on Left with Memoization
 ## !! This one passes on LeetCode it is fast enough !!
-@qtimer.timeit
+#@qtimer.timeit
 def min_on_left_memoized(height):
     print('Doing min_on_left with Memoization')          
     res = 0
@@ -75,7 +75,7 @@ def min_on_left_memoized(height):
     return res
 
 ## 2. Min on Right: The moment method
-@qtimer.timeit
+#@qtimer.timeit
 def min_on_right(height):
     print('Doing min_on_right: linear moment method')
     resL = 0
@@ -175,7 +175,6 @@ def pour_water(height):
             '''
     return res
 
-## 4. Start on Each End: The fastest Solution
 @qtimer.timeit
 def maxArea_original(self, height) -> int:
         currentlargestArea = 0
@@ -230,27 +229,59 @@ def ends_first(height) -> int:
     return res
 
 class Solution:
-    def maxArea(self, height) -> int:
+    def maxArea(height) -> int:
         print()
         print(f"Testing {height}")
         MIN_ON_LEFT_RES, MEMO, MIN_ON_RIGHT_RES, POUR_WATER_RES, ENDS_RES  = [print_and_assign(method(height)) for method in [min_on_left, min_on_left_memoized, min_on_right, pour_water, ends_first]]
         return MIN_ON_LEFT_RES
+
+    @classmethod
+    def test_cases(cls):
+        cls.maxArea([1,8,6,2,5,4,8,3,7])  ## Min on Right
+        yield
+        assert cls.maxArea([1,1]) == 1
+        yield
+        assert cls.maxArea([2,1,3,1]) == 4       ## Min on LEFT
+        yield
+        assert cls.maxArea([1,1,1,1]) == 3       ## Min on LEFT
+        yield
+        assert cls.maxArea([1,2,2,1]) == 3       ## Min on LEFT
+        yield
+        assert cls.maxArea([1,6,6,1]) == 6
+        yield       ## Min on LEFT``
     
 class Min_On_Left(Solution):    
-    def maxArea(self, height) -> int:
-        return print_and_assign(min_on_left)
+    def maxArea(height) -> int:
+        return print_and_assign(min_on_left_memoized(height))
 
-class Min_Oo_Right(Solution):
-    def maxArea(self, height) -> int:
-        return print_and_assign(min_on_right)      
+class Min_On_Right(Solution):
+    def maxArea(height) -> int:
+        return print_and_assign(min_on_right(height))     
     
+
+
+def compose_tests(cls):
+    return cls.test_cases()
 
 # Tester
 def test_solution():
     ## Run Tests, set timers, compare answers with this class
+    Solutions = [Solution, Min_On_Left, Min_On_Right]
 
+    cases = map(compose_tests, Solutions)
 
-    solution = Solution()
+    print(cases)
+
+    cs = Min_On_Left.test_cases()
+
+    for case in Min_On_Left.test_cases():
+        print('passed')
+
+    print()
+    for case in Min_On_Right.test_cases():
+        print('passed')
+
+    '''solution = Solution()
     def compose_test_cases(solution):
         assert solution.maxArea([1,8,6,2,5,4,8,3,7]) == 49  ## Min on Right
         yield
@@ -263,6 +294,7 @@ def test_solution():
         assert solution.maxArea([1,2,2,1]) == 3       ## Min on LEFT
         yield
         assert solution.maxArea([1,6,6,1]) == 6       ## Min on LEFT
+        '''
 
 
 if __name__ == "__main__":
