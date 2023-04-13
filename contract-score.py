@@ -49,13 +49,18 @@ def max_score_dp(scores, viable):
         for col in states:
             I[pos][col - 1] = 1
 
-    [print(row) for row in I]
+    uPosOf = list(range(N_STATES))
+    u = [['',] * N_STATES for _ in viable]
+    for col, pos in enumerate(uPosOf):
+        u[pos][col] = 'u'
+
+    [print(row) for row in u]
 
     
     def wannabe(pos, col):
         ## I am p3(3) I wanna be p3(4)
         ## what is the postion that holds column 4
-        ## U postiion of 4 (uof(4)) is position 10 (or p(10))
+        ## U postion of 4 (uof(4)) is position 10 (or p(10))
 
         ## ok
         ## if you swap with p10 
