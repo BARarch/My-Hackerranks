@@ -61,7 +61,7 @@ def max_score_dp(scores, viable):
 
     def unmatched_positions():
         stateHistory = [''.join([reduce(mul, col) for col in pos]) for pos in [tuple(zip(*row)) for row in zip(u, I)]]
-        return {matched[0] for matched in filter(lambda hist: "u" in hist[1], enumerate(stateHistory))}
+        return {matched[0] for matched in filter(lambda hist: "u" not in hist[1], enumerate(stateHistory))}
 
 
     #print([''.join([reduce(mul, state) for state in pos]) for pos in [tuple(zip(*row)) for row in zip(u, I)]])
@@ -82,6 +82,8 @@ def max_score_dp(scores, viable):
         initalVal = scores[pos] if pos not in unmatched_positions() else 0
         finalVal = I[pos][state] * scores[pos]
         return initalVal - finalVal
+    
+    print(cost(0,9))
 
 
 
