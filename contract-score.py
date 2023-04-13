@@ -54,6 +54,7 @@ def max_score_dp(scores, viable):
             I[pos][col - 1] = 1
 
     uPosOf = list(range(N_STATES))
+    uStateOf = list(range(N_STATES))
     ## Initialize the used state matrix u
     u = [['',] * N_STATES for _ in viable]
     for col, pos in enumerate(uPosOf):
@@ -73,6 +74,8 @@ def max_score_dp(scores, viable):
     #[print(tuple(zip(*row))) for row in zip(u, I)]  # How to combine
     #[print(row) for row in u]
 
+    
+
     def cost(pos, state):
         ## p3(3) wanna be p3(4) huh...
         ## what position holds state 4
@@ -85,10 +88,26 @@ def max_score_dp(scores, viable):
     
     print(cost(0,9))
 
+    unMatched = unmatched_positions()
+    n = 0
+    while unMatched:
+        pos = unMatched[0]
+        viable[pos].sort(lambda state: cost(uPosOf[state], uStateOf[pos]))
+
+        ## find the cheapest unvisited state
+        viableState = iter(viable[pos])
+        state = next(state)
+        # What if there are no viable states?
+        while u[pos][state] is not '':
+            state = next(viableState)
+        
+        wannabe(pos, state, n)      # Conduct Swap
+        n += 1
+
 
 
     
-    def wannabe(pos, state):
+    def wannabe(pos, state, n):
         ## I am p3(3) I wanna be p3(4)
         ## what is the postion that holds state 4
         ## U postion of 4 (uof(4)) is position 10 (or p(10))
@@ -119,17 +138,17 @@ if __name__ == "__main__":
                50, 
                50]
     
-    viableContracts0 = [{1,4,6,8,9,10},
-                        {1,2,3,5,7,10},
-                        {1,4,6,9,10},
-                        {1,4,10},
-                        {4,7},
-                        {4,6,10},
-                        {1,2,3,4,6,10},
-                        {4},
-                        {4,8},
-                        {1,2,3,5,7,10},
-                        {4,7}]
+    viableContracts0 = [[1,4,6,8,9,10],
+                        [1,2,3,5,7,10],
+                        [1,4,6,9,10],
+                        [1,4,10],
+                        [4,7],
+                        [4,6,10],
+                        [1,2,3,4,6,10],
+                        [4],
+                        [4,8],
+                        [1,2,3,5,7,10],
+                        [4,7]]
     
     viable0 = tuple(range(1,12))
 
