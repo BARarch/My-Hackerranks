@@ -41,6 +41,34 @@ def max_score(viable: Tuple[int], positionsToChoose: int, scores, viableContract
     maxScore, result = max_score_helper(viable, positionsToChoose)
     return maxScore, list(reversed(result))
 
+def max_score_dp(scores, viable):
+    N_STATES = 10
+    viable = viable[:N_STATES]
+    I = [[0,] * N_STATES for _ in viable]
+    for pos, states in enumerate(viable):
+        for col in states:
+            I[pos][col - 1] = 1
+
+    [print(row) for row in I]
+
+    
+    def wannabe(pos, col):
+        ## I am p3(3) I wanna be p3(4)
+        ## what is the postion that holds column 4
+        ## U postiion of 4 (uof(4)) is position 10 (or p(10))
+
+        ## ok
+        ## if you swap with p10 
+        ## the cost will be whatever it costs for p10(4) to goto p10(3)
+
+        ## Do the u->i->u->i
+        ## where u is the marker of the state a postion is in on the state matrix
+        ## U[pos, col] = 'u' if position pos is in state col.
+        ## and where i is a marker for previous states for a position
+        pass
+
+
+
 
 if __name__ == "__main__":
     scores0 = [500, 
@@ -69,7 +97,9 @@ if __name__ == "__main__":
     
     viable0 = tuple(range(1,12))
 
-    print(max_score(viable0, 11, scores0, viableContracts0))
+
+    max_score_dp(scores0, viableContracts0)
+    #print(max_score(viable0, 11, scores0, viableContracts0))
 
 
 
