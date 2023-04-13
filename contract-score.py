@@ -1,4 +1,6 @@
 from typing import List, Set, Tuple
+from functools import reduce
+from operator import mul
 
 def max_score(viable: Tuple[int], positionsToChoose: int, scores, viableContracts ) -> Tuple[int, List[int]]:
     ## Input the 
@@ -45,21 +47,48 @@ def max_score_dp(scores, viable):
     N_STATES = 10
     viable = viable[:N_STATES]
     I = [[0,] * N_STATES for _ in viable]
+    ## Declare the Viable State Matrix I. 
+    ## This will not change
     for pos, states in enumerate(viable):
         for col in states:
             I[pos][col - 1] = 1
 
     uPosOf = list(range(N_STATES))
+    ## Initialize the used state matrix u
     u = [['',] * N_STATES for _ in viable]
     for col, pos in enumerate(uPosOf):
         u[pos][col] = 'u'
 
-    [print(row) for row in u]
+    def unmatched_positions():
+        stateHistory = [''.join([reduce(mul, col) for col in pos]) for pos in [tuple(zip(*row)) for row in zip(u, I)]]
+        return {matched[0] for matched in filter(lambda hist: "u" in hist[1], enumerate(stateHistory))}
+
+
+    #print([''.join([reduce(mul, state) for state in pos]) for pos in [tuple(zip(*row)) for row in zip(u, I)]])
+    print(unmatched_positions())
+
+   # set(pos for pos in [tuple(zip(*row)) for row in zip(u, I)]
+
+    # Check Initializations
+    #[print(tuple(zip(*row))) for row in zip(u, I)]  # How to combine
+    #[print(row) for row in u]
+
+    def cost(pos, state):
+        ## p3(3) wanna be p3(4) huh...
+        ## what position holds state 4
+        ## uof(4) is p10 so p10(4)
+        ## what is the cost of p10 going to p10(3)
+        ## look at the table
+        initalVal = scores[pos] if pos not in unmatched_positions() else 0
+        finalVal = I[pos][state] * scores[pos]
+        return initalVal - finalVal
+
+
 
     
-    def wannabe(pos, col):
+    def wannabe(pos, state):
         ## I am p3(3) I wanna be p3(4)
-        ## what is the postion that holds column 4
+        ## what is the postion that holds state 4
         ## U postion of 4 (uof(4)) is position 10 (or p(10))
 
         ## ok
