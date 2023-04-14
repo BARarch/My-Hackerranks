@@ -44,8 +44,20 @@ def max_score(viable: Tuple[int], positionsToChoose: int, scores, viableContract
     return maxScore, list(reversed(result))
 
 def max_score_dp(scores, viable):
+    uStateOf = list(range(N_STATES))
+    def u_stateOf(pos):
+        return tuple(uStateOf)[pos]
+    
+    uPosOf = list(range(N_STATES))
+    def u_posOf(state):
+        return tuple(uPosOf)[state]
+    
+
     N_STATES = 10
+    
     viable = viable[:N_STATES]
+    
+    
     I = [[0,] * N_STATES for _ in viable]
     ## Declare the Viable State Matrix I. 
     ## This will not change
@@ -53,8 +65,7 @@ def max_score_dp(scores, viable):
         for col in states:
             I[pos][col - 1] = 1
 
-    uPosOf = list(range(N_STATES))
-    uStateOf = list(range(N_STATES))
+    
     ## Initialize the used state matrix u
     u = [['',] * N_STATES for _ in viable]
     for col, pos in enumerate(uPosOf):
@@ -85,6 +96,24 @@ def max_score_dp(scores, viable):
         initalVal = scores[pos] if pos not in unmatched_positions() else 0
         finalVal = I[pos][state] * scores[pos]
         return initalVal - finalVal
+    
+    def total(usedStates):
+        res = 0
+        for score, usedState, viablestates in zip(scores, usedStates, I):
+            res += score * viablestates[usedState]
+        return res
+    
+    def ressultOf_swap(pos, state):
+        # what will the stat vector look like?
+        otherPos = u_posOf(state)
+        posCurrentState = u_stateOf(pos)
+        resultingState = tuple(uStateOf)
+        resultingState[otherPos] = posCurrentState
+        resultingState[pos] = state
+        return state, cost(pos, state), resultingState
+    
+    VistedStates = {tuple(uStateOf)}
+    VistedScores = {total(uStateOf):tuple(uStateOf)}
     
     print(cost(0,9))
 
@@ -120,7 +149,19 @@ def max_score_dp(scores, viable):
         ## where u is the marker of the state a postion is in on the state matrix
         ## U[pos, col] = 'u' if position pos is in state col.
         ## and where i is a marker for previous states for a position
-        pass
+
+        ## conduct swap here
+
+        ## compute viable swaps SET
+        
+
+        while unmatched_positions():
+            ## sort remaining viable swaps SET
+            ## REMOVE the best one
+            wannabe(pos, state, n+1)
+            ## compute remaining viable swaps SET 
+
+        return
 
 
 
