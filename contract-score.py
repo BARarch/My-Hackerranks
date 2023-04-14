@@ -44,17 +44,17 @@ def max_score(viable: Tuple[int], positionsToChoose: int, scores, viableContract
     return maxScore, list(reversed(result))
 
 def max_score_dp(scores, viable):
-    uStateOf = list(range(N_STATES))
+
+    N_STATES = 10
+
+    uStateOf = tuple(range(N_STATES))
     def u_stateOf(pos):
         return tuple(uStateOf)[pos]
     
-    uPosOf = list(range(N_STATES))
+    uPosOf = tuple(range(N_STATES))
     def u_posOf(state):
         return tuple(uPosOf)[state]
-    
-
-    N_STATES = 10
-    
+       
     viable = viable[:N_STATES]
     
     
@@ -67,9 +67,10 @@ def max_score_dp(scores, viable):
 
     
     ## Initialize the used state matrix u
-    u = [['',] * N_STATES for _ in viable]
-    for col, pos in enumerate(uPosOf):
-        u[pos][col] = 'u'
+    def compute_U(usedStates):
+        return [(['',] * state) + ['u',] + (['',] * (N_STATES - state - 1)) for state in usedStates]
+    
+    u = compute_U(uStateOf)
 
     def unmatched_positions():
         stateHistory = [''.join([reduce(mul, col) for col in pos]) for pos in [tuple(zip(*row)) for row in zip(u, I)]]
@@ -103,22 +104,26 @@ def max_score_dp(scores, viable):
             res += score * viablestates[usedState]
         return res
     
-    def ressultOf_swap(pos, state):
+    def get_swapState(pos, state):
         # what will the stat vector look like?
         otherPos = u_posOf(state)
         posCurrentState = u_stateOf(pos)
-        resultingState = tuple(uStateOf)
+        resultingState = list(uStateOf)
         resultingState[otherPos] = posCurrentState
         resultingState[pos] = state
-        return state, cost(pos, state), resultingState
+        return tuple(resultingState)
     
-    VistedStates = {tuple(uStateOf)}
-    VistedScores = {total(uStateOf):tuple(uStateOf)}
+    def ressultOf_swap(pos, state):  
+        return state, cost(pos, state), get_swapState(pos, state)
+    
+    VistedStates = {uStateOf}
+    VistedScores = {total(uStateOf):uStateOf}
     
     print(cost(0,9))
 
     unMatched = unmatched_positions()
     n = 0
+    '''
     while unMatched:
         pos = unMatched[0]
         viable[pos].sort(lambda state: cost(uPosOf[state], uStateOf[pos]))
@@ -131,7 +136,7 @@ def max_score_dp(scores, viable):
             state = next(viableState)
         
         wannabe(pos, state, n)      # Conduct Swap
-        n += 1
+        n += 1'''
 
 
 
@@ -151,6 +156,8 @@ def max_score_dp(scores, viable):
         ## and where i is a marker for previous states for a position
 
         ## conduct swap here
+        uStateOf = get_swapState(pos, state)
+        u = compute_U(uStateOf) 
 
         ## compute viable swaps SET
         
