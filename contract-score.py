@@ -136,7 +136,7 @@ def max_score_dp(scores, viable):
     def compute_unmatched_positions():
         U['unmatched'] = []
         for pos, uState in enumerate(U['stateOf']):
-            if uState + 1 not in viable[pos]:
+            if uState not in V['statesOfPos'][pos]:
                 U['unmatched'].append(pos)
 
     def set_state(newUsedState):
