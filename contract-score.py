@@ -47,10 +47,33 @@ def max_score(viable: Tuple[int], positionsToChoose: int, scores, viableContract
 
 def max_score_dp(scores, viable):
 
+    STATE_OFFSET = 1
     N_STATES = 10
     viable = viable[:N_STATES]
     VistedStates = set()
     VistedScoresStates = {}
+
+    ## V Constants for Data Image
+    V = {   'statesOfPos': [set(),],
+            'display': [[]],
+            'scores': [],
+            'matchableStates': set(),
+            'maximumScore': 0
+             }
+    
+    def set_states_of_pos(viable):
+        V['statesOfPos'] = []
+        for pos in viable:
+            stateSet = set()
+            for state in pos:
+                stateSet.add(state - STATE_OFFSET)
+            V['stateOfPos'].append(stateSet)
+
+    def set_viable_states(viable, scores):
+        pass
+    V['set_viable'] = set_viable_states
+            
+
        
     ## Declare the Viable State Matrix I.
     I = [[0,] * N_STATES for _ in viable] 
@@ -61,8 +84,9 @@ def max_score_dp(scores, viable):
     def print_I():
         [print(row) for row in I]
 
+    ## U State Dictionary
     U = {   'stateOf': ['',] * N_STATES,
-            'display': [[''],['']],
+            'display': [['',],],
             'posOf': ["",] * N_STATES,
             'unmatched': [],
             'totalScore': 0,
@@ -71,9 +95,11 @@ def max_score_dp(scores, viable):
     ## Main State Variable for Swaps
     def u_stateOf(pos):
         return U['stateOf'][pos]
+    U['state_of'] = u_stateOf
+    
     def print_state():
         [print(state) for state in U['stateOf']]
-    U['state_of'] = u_stateOf
+    
   
     ## Initialize the used state matrix u
     def compute_U():
@@ -82,7 +108,6 @@ def max_score_dp(scores, viable):
         [print(row) for row in U['display']]
     
     ## U position of state 
-    uPosOf = ['',] * N_STATES 
     def compute_U_posOf():
         for pos, state in enumerate(U['stateOf']):
             U['posOf'][state] = pos
@@ -110,8 +135,7 @@ def max_score_dp(scores, viable):
         compute_unmatched_positions()
         compute_total_score()
         VistedStates.add(newUsedState)
-        VistedScoresStates[U['totalScore']] = newUsedState
-        
+        VistedScoresStates[U['totalScore']] = newUsedState        
     U['set_state'] = set_state
 
     ## Swap Utility Functions
