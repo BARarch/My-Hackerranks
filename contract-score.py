@@ -206,16 +206,6 @@ def max_score_dp(scores, viable):
     V['set_viable'](viable, scores)             #  Initialize Case
     U['set_state'](tuple(range(N_STATES)))      #  Initialize State
 
-    print_state()
-    print_u()
-    ##print_I()
-    ##sprint(uPosOf)
-    print(U['unmatched'])
-    print(cost(0,9))
-    print(ressultOf_swap(3, 4))
-    print(VistedStates)
-    print(VistedScoresStates)
-
     n = 0
     
     if U['unMatched']:
@@ -225,10 +215,22 @@ def max_score_dp(scores, viable):
         print(f'viable moves at position {pos} {viable_moves}')
         viable_moves.sort(key=lambda move: move[2])
         print(f'cheapest one: {viable_moves[0]}')
+
+        ## Call Recursove Helper Here
         res, finalState = wannabe(pos, viable_moves[0][0], 0)      # Conduct Swap
 
     print(res)
     print(finalState)
+
+    '''print_state()
+    print_u()
+    ##print_I()
+    ##sprint(uPosOf)
+    print(U['unmatched'])
+    print(cost(0,9))
+    print(ressultOf_swap(3, 4))
+    print(VistedStates)
+    print(VistedScoresStates)'''
 
     return res, finalState
 
