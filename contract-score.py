@@ -60,6 +60,12 @@ def max_score_dp(scores, viable):
             'matchableStates': set(),
             'maximumScore': 0
              }
+
+    def set_display():
+        V['display'] = [[0,] * N_STATES for pos in V['statesOfPos']]
+        for pos, states in enumerate(V['statesOfPos']):
+            for state in states:
+                V['display'][pos][state] = 1
     
     def set_states_of_pos(viable):
         V['statesOfPos'] = []
@@ -69,8 +75,23 @@ def max_score_dp(scores, viable):
                 stateSet.add(state - STATE_OFFSET)
             V['stateOfPos'].append(stateSet)
 
+    def compute_matchable_states():
+        for stateSet in V['statesOfPos'].values():
+            V['matchableStates'].union(stateSet)
+
+    def compute_scores(scores):
+        ## A state can only match with one postion
+        ## If there are fewer matchable states than positions
+        ## Some postions will go unmatched
+        ## We only keep the top N scores for the N matchable positions
+        V['scores'] = scores[:len(V['matchableStates'])]
+        V['maximumScore'] = sum(V['scores'])
+
     def set_viable_states(viable, scores):
-        pass
+        set_states_of_pos(viable)
+        set_display()
+        compute_matchable_states()
+        compute_scores()
     V['set_viable'] = set_viable_states
             
 
