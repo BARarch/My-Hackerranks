@@ -50,6 +50,7 @@ def max_score_dp(scores, viable):
     STATE_OFFSET = 1
     N_STATES = 10
     viable = viable[:N_STATES]
+
     VistedStates = set()
     VistedScoresStates = {}
 
@@ -91,19 +92,9 @@ def max_score_dp(scores, viable):
         set_states_of_pos(viable)
         set_display()
         compute_matchable_states()
-        compute_scores()
+        compute_scores(scores)
     V['set_viable'] = set_viable_states
             
-
-       
-    ## Declare the Viable State Matrix I.
-    I = [[0,] * N_STATES for _ in viable] 
-    ## This will not change
-    for pos, states in enumerate(viable):
-        for col in states:
-            I[pos][col - 1] = 1
-    def print_I():
-        [print(row) for row in I]
 
     ## U State Dictionary
     U = {   'stateOf': ['',] * N_STATES,
@@ -210,12 +201,15 @@ def max_score_dp(scores, viable):
         res = max(VistedScoresStates)
         return res, VistedScoresStates[res]
     
-    U['set_state'](tuple(range(N_STATES)))
+    
+    ## Start Computation
+    V['set_viable'](viable, scores)             #  Initialize Case
+    U['set_state'](tuple(range(N_STATES)))      #  Initialize State
 
     print_state()
     print_u()
-    print_I()
-    print(uPosOf)
+    ##print_I()
+    ##sprint(uPosOf)
     print(U['unmatched'])
     print(cost(0,9))
     print(ressultOf_swap(3, 4))
