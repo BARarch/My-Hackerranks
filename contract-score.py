@@ -51,22 +51,22 @@ def max_score_dp(scores, viable):
     N_STATES = 10
     viable = viable[:N_STATES]
 
-    VistedStates = set()
-    VistedScoresStates = {}
+    VisitedStates = set()
+    VisitedScoresStates = {}
 
     ## V Constants for Data Image
     V = {   'statesOfPos': [set(),],
-            'display': [[]],
+            'I': [[]],
             'scores': [],
             'matchableStates': set(),
             'maximumScore': 0
              }
 
     def set_display():
-        V['display'] = [[0,] * N_STATES for pos in V['statesOfPos']]
+        V['I'] = [[0,] * N_STATES for pos in V['statesOfPos']]
         for pos, states in enumerate(V['statesOfPos']):
             for state in states:
-                V['display'][pos][state] = 1
+                V['I'][pos][state] = 1
     
     def set_states_of_pos(viable):
         V['statesOfPos'] = []
@@ -74,10 +74,10 @@ def max_score_dp(scores, viable):
             stateSet = set()
             for state in pos:
                 stateSet.add(state - STATE_OFFSET)
-            V['stateOfPos'].append(stateSet)
+            V['statesOfPos'].append(stateSet)
 
     def compute_matchable_states():
-        for stateSet in V['statesOfPos'].values():
+        for stateSet in V['statesOfPos']:
             V['matchableStates'].union(stateSet)
 
     def compute_scores(scores):
@@ -100,7 +100,7 @@ def max_score_dp(scores, viable):
     U = {   'stateOf': ['',] * N_STATES,
             'display': [['',],],
             'posOf': ["",] * N_STATES,
-            'unmatched': [],
+            'unMatched': [],
             'totalScore': 0,
             'nSwaps': 0}
 
@@ -124,20 +124,21 @@ def max_score_dp(scores, viable):
         for pos, state in enumerate(U['stateOf']):
             U['posOf'][state] = pos
     def u_posOf(state):
+        #print(f'...U position of state {state} in {U["posOf"]}')
         return U['posOf'][state]
     U['pos_of'] = u_posOf
 
     ## Additional Interface Functions
     def compute_total_score():
         U['totalScore'] = 0
-        for score, usedState, viablestates in zip(scores, U['stateOf'], I):
+        for score, usedState, viablestates in zip(scores, U['stateOf'], V['I']):
             U['totalScore'] += score * viablestates[usedState]
         
     def compute_unmatched_positions():
-        U['unmatched'] = []
+        U['unMatched'] = []
         for pos, uState in enumerate(U['stateOf']):
             if uState not in V['statesOfPos'][pos]:
-                U['unmatched'].append(pos)
+                U['unMatched'].append(pos)
 
     def set_state(newUsedState):
         U['stateOf'] = newUsedState
@@ -146,8 +147,9 @@ def max_score_dp(scores, viable):
         compute_U_posOf()
         compute_unmatched_positions()
         compute_total_score()
-        VistedStates.add(newUsedState)
-        VistedScoresStates[U['totalScore']] = newUsedState        
+        print(f'state to add {newUsedState}')
+        VisitedStates.add(newUsedState)
+        VisitedScoresStates[U['totalScore']] = newUsedState        
     U['set_state'] = set_state
 
     ## Swap Utility Functions
@@ -157,14 +159,14 @@ def max_score_dp(scores, viable):
         ## uof(4) is p10 so p10(4)
         ## what is the cost of p10 going to p10(3)
         ## look at the table
-        initalVal = scores[pos] if pos not in U.unmatched else 0
-        finalVal = I[pos][state] * scores[pos]
+        initalVal = scores[pos] if pos not in U['unMatched'] else 0
+        finalVal = V['I'][pos][state] * scores[pos]
         return initalVal - finalVal
     
     def get_swapState(pos, state):
         # what will the stat vector look like?
-        otherPos = U.pos_of(state)
-        posCurrentState = U.state_of(pos)
+        otherPos = U['pos_of'](state)
+        posCurrentState = U['state_of'](pos)
         resultingState = list(U['stateOf'])
         resultingState[otherPos] = posCurrentState
         resultingState[pos] = state
@@ -173,24 +175,28 @@ def max_score_dp(scores, viable):
     def ressultOf_swap(pos, state):  
         return state, *get_swapState(pos, state)
     
-    def get_viable_moves(position, without=None):
+    def get_viable_moves(pos, without=None):
         if without:
-            return list(filter(lambda result: result[1] not in VistedStates, map(lambda state: ressultOf_swap(pos, state - 1), filter(lambda state: state != without, viable[pos]))))
-        return list(filter(lambda result: result[1] not in VistedStates, map(lambda state: ressultOf_swap(pos, state - 1), viable[pos])))
+            #print(VisitedStates)
+            return list(filter(lambda result: result[1] not in VisitedStates, map(lambda state: ressultOf_swap(pos, state), filter(lambda state: state != without, V['statesOfPos'][pos]))))
+        return list(filter(lambda result: result[1] not in VisitedStates, map(lambda state: ressultOf_swap(pos, state), V['statesOfPos'][pos])))
     
     ## Main Function
     def wannabe(pos, state, n):
         ## conduct swap here
-        U.set_state(get_swapState(pos, state)[0])
+        print(f'{pos} gonnabe {state} at step {n} ')
+        U['set_state'](get_swapState(pos, state)[0])
     
-        if U['unmatched']:
-            pos = U['unmatched'][0]
+        if U['unMatched']:
+            pos = U['unMatched'][0]
 
             ## compute viable swaps SET
+            #print(VisitedStates)
             viable_moves = get_viable_moves(pos)
-            print(f'viable moves at position {pos} {viable_moves}')
+            print(f'viable moves at position {pos} ')
+            [print(move) for move in viable_moves]
 
-            while U['unmatched'] and viable_moves:
+            while U['unMatched'] and viable_moves:
                 viable_moves.sort(key=lambda move: move[2])
                 print(f'cheapest one: {viable_moves[0]}')  
                 state = viable_moves[0][0]
@@ -198,8 +204,8 @@ def max_score_dp(scores, viable):
                 ## compute remaining viable swaps SET
                 viable_moves = get_viable_moves(pos, without=state)
 
-        res = max(VistedScoresStates)
-        return res, VistedScoresStates[res]
+        res = max(VisitedScoresStates)
+        return res, VisitedScoresStates[res]
     
     
     ## Start Computation
@@ -221,12 +227,13 @@ def max_score_dp(scores, viable):
 
     print(res)
     print(finalState)
+    print(f'nSwaps: {U["nSwaps"]}')
 
     '''print_state()
     print_u()
     ##print_I()
     ##sprint(uPosOf)
-    print(U['unmatched'])
+    print(U['unMatched'])
     print(cost(0,9))
     print(ressultOf_swap(3, 4))
     print(VistedStates)
@@ -253,17 +260,17 @@ if __name__ == "__main__":
                50, 
                50]
     
-    viableContracts0 = [[1,4,6,8,9,10],
-                        [1,2,3,5,7,10],
-                        [1,4,6,9,10],
-                        [1,4,10],
-                        [4,7],
-                        [4,6,10],
-                        [1,2,3,4,6,10],
-                        [4],
-                        [4,8],
-                        [1,2,3,5,7,10],
-                        [4,7]]
+    viableContracts0 = [[1,4,6,8,9,10], #8
+                        [1,2,3,5,7,10], #4 
+                        [1,4,6,9,10],   #0
+                        [1,4,10],       #9
+                        [4,7],          #6
+                        [4,6,10],       #5
+                        [1,2,3,4,6,10], #1
+                        [4],            #3
+                        [4,8],          #7
+                        [1,2,3,5,7,10], #2 All MATCHED !!!
+                        [4,7]]          #
     
     viable0 = tuple(range(1,12))
 
