@@ -189,12 +189,9 @@ def max_score_dp(scores, viable):
 
             ## compute viable swaps SET
             viable_moves = get_viable_moves(pos)
-            print(f'viable moves at position {pos} ')
-            [print(move) for move in viable_moves]
-
             while U['unMatched'] and viable_moves:
                 viable_moves.sort(key=lambda move: move[2])
-                print(f'cheapest one: {viable_moves[0]}')  
+                print(f'cheapest move at position {pos}: {viable_moves[0]}')  
                 state = viable_moves[0][0]
                 total, state = wannabe(pos, state, n + 1)
                 ## compute remaining viable swaps SET
@@ -214,9 +211,9 @@ def max_score_dp(scores, viable):
         pos = U['unMatched'][0]
         print(f'Starting Position to swap: {pos}')
         viable_moves = get_viable_moves(pos)
-        print(f'viable moves at position {pos} {viable_moves}')
+        #print(f'viable moves at position {pos} {viable_moves}')
         viable_moves.sort(key=lambda move: move[2])
-        print(f'cheapest one: {viable_moves[0]}')
+        print(f'cheapest move at position {pos}: {viable_moves[0]}')
 
         ## Call Recursove Helper Here
         res, finalState = wannabe(pos, viable_moves[0][0], 0)      # Conduct Swap
