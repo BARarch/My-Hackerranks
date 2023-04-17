@@ -32,10 +32,11 @@ def max_score_dp(scores, viable):
             for state in pos:
                 stateSet.add(state - STATE_OFFSET)
             V['statesOfPos'].append(stateSet)
+        #[print(stateSet) for stateSet in V['statesOfPos']]
 
     def compute_matchable_states():
         for stateSet in V['statesOfPos']:
-            V['matchableStates'].union(stateSet)
+            V['matchableStates'] = V['matchableStates'].union(stateSet)
 
     def compute_scores(scores):
         ## A state can only match with one postion
@@ -44,6 +45,9 @@ def max_score_dp(scores, viable):
         ## We only keep the top N scores for the N matchable positions
         V['scores'] = scores[:len(V['matchableStates'])]
         V['maximumScore'] = sum(V['scores'])
+        print(f"matchable states { len(V['matchableStates']) }: {  V['matchableStates']  }")
+        #print(V['scores'])
+        #print(V['maximumScore'])
 
     def set_viable_states(viable, scores):
         set_states_of_pos(viable)
@@ -175,14 +179,19 @@ def max_score_dp(scores, viable):
         ## Call Recursove Helper Here
         res, finalState = wannabe(pos, viable_moves[0][0], 0)      # Conduct Swap
 
-    print(res)
-    print(finalState)
+
+    print('\nfinalScore')
+    print(f'{res} states: {finalState}')
+    
     print(f'nSwaps: {U["nSwaps"]}')
+    print(f'maxPosible {V["maximumScore"]}')
 
     return res, finalState
 
 if __name__ == "__main__":
     ## CASE 0
+    print()
+    print("Case 0")
     scores0 = [500, 
                450, 
                350, 
@@ -210,6 +219,8 @@ if __name__ == "__main__":
     max_score_dp(scores0, viableContracts0)
 
     ## CASE 1
+    print()
+    print("Case 0")
     scores1 = [500, 
                450, 
                350, 
@@ -222,7 +233,7 @@ if __name__ == "__main__":
                50, 
                50]
     
-    viableContracts0 = [[1,4,6,8,9,10], #8
+    viableContracts1s = [[1,4,6,8,9,10], #8
                         [1,2,3,5,7,10], #4 
                         [1,4,6,9,10],   #0
                         [1,4,10],       #9
