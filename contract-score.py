@@ -124,7 +124,6 @@ def max_score_dp(scores, viable):
         for pos, state in enumerate(U['stateOf']):
             U['posOf'][state] = pos
     def u_posOf(state):
-        #print(f'...U position of state {state} in {U["posOf"]}')
         return U['posOf'][state]
     U['pos_of'] = u_posOf
 
@@ -147,7 +146,6 @@ def max_score_dp(scores, viable):
         compute_U_posOf()
         compute_unmatched_positions()
         compute_total_score()
-        print(f'state to add {newUsedState}')
         VisitedStates.add(newUsedState)
         VisitedScoresStates[U['totalScore']] = newUsedState        
     U['set_state'] = set_state
@@ -164,7 +162,7 @@ def max_score_dp(scores, viable):
         return initalVal - finalVal
     
     def get_swapState(pos, state):
-        # what will the stat vector look like?
+        # what will the state vector look like?
         otherPos = U['pos_of'](state)
         posCurrentState = U['state_of'](pos)
         resultingState = list(U['stateOf'])
@@ -177,7 +175,6 @@ def max_score_dp(scores, viable):
     
     def get_viable_moves(pos, without=None):
         if without:
-            #print(VisitedStates)
             return list(filter(lambda result: result[1] not in VisitedStates, map(lambda state: ressultOf_swap(pos, state), filter(lambda state: state != without, V['statesOfPos'][pos]))))
         return list(filter(lambda result: result[1] not in VisitedStates, map(lambda state: ressultOf_swap(pos, state), V['statesOfPos'][pos])))
     
@@ -191,7 +188,6 @@ def max_score_dp(scores, viable):
             pos = U['unMatched'][0]
 
             ## compute viable swaps SET
-            #print(VisitedStates)
             viable_moves = get_viable_moves(pos)
             print(f'viable moves at position {pos} ')
             [print(move) for move in viable_moves]
@@ -228,16 +224,6 @@ def max_score_dp(scores, viable):
     print(res)
     print(finalState)
     print(f'nSwaps: {U["nSwaps"]}')
-
-    '''print_state()
-    print_u()
-    ##print_I()
-    ##sprint(uPosOf)
-    print(U['unMatched'])
-    print(cost(0,9))
-    print(ressultOf_swap(3, 4))
-    print(VistedStates)
-    print(VistedScoresStates)'''
 
     return res, finalState
 
