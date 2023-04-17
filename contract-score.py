@@ -145,6 +145,7 @@ def max_score_dp(scores, viable):
         print(f'{pos} gonnabe {state} at step {n} ')
         U['set_state'](get_swapState(pos, state)[0])
     
+        print(f"unmatched positions: {U['unMatched']} score: {U['totalScore']}")
         if U['unMatched']:
             pos = U['unMatched'][0]
 
@@ -216,36 +217,34 @@ if __name__ == "__main__":
                         [1,2,3,5,7,10], #2 All MATCHED !!!
                         [4,7]]          #
 
-    max_score_dp(scores0, viableContracts0)
+    #max_score_dp(scores0, viableContracts0)
 
     ## CASE 1
     print()
     print("Case 0")
-    scores1 = [500, 
-               450, 
-               350, 
-               350, 
-               300, 
+    scores1 = [490, 
+               490, 
+               360, 
+               360, 
+               360, 
                250, 
-               200, 
-               150, 
-               100, 
-               50, 
-               50]
+               250, 
+               250, 
+               250, 
+               250]
     
-    viableContracts1s = [[1,4,6,8,9,10], #8
-                        [1,2,3,5,7,10], #4 
-                        [1,4,6,9,10],   #0
-                        [1,4,10],       #9
-                        [4,7],          #6
-                        [4,6,10],       #5
-                        [1,2,3,4,6,10], #1
-                        [4],            #3
-                        [4,8],          #7
-                        [1,2,3,5,7,10], #2 All MATCHED !!!
-                        [4,7]]          #
+    viableContracts1 = [[4,5,10],   #8
+                        [1,2,3,4],  #4 
+                        [1,4,5,9],  #0
+                        [2,3,4,9],  #9
+                        [4,10],      #6    
+                        [1,4,10],   #1
+                        [1,2,3,4],  #3
+                        [1,2,3,4],  #7
+                        [4],        #2 All MATCHED !!!
+                        [1,4]]      #
 
-    max_score_dp(scores0, viableContracts0)
+    max_score_dp(scores1, viableContracts1)
 
 
 
