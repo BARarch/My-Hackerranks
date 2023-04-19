@@ -1,29 +1,42 @@
 from typing import List, Set, Tuple
 from functools import reduce
 from operator import mul
+from pandas import *
 
 def max_score_dp(scores, viable):
 
     STATE_OFFSET = 1
-    N_STATES = 10
+    N_STATES = 10                   ## Fix This
     viable = viable[:N_STATES]
 
     VisitedStates = set()
     VisitedScoresStates = {}
 
+    def show_matrix(matrix, positionScores):
+        df = DataFrame(matrix)
+        df.index = [f'{row}: {score}' for row, score in enumerate(positionScores)]
+        print(df)
+
     ## V Constants for Data Image
     V = {   'statesOfPos': [set(),],
             'I': [[]],
+            'allScores': scores,
             'scores': [],
             'matchableStates': set(),
+            'unMatchableStates': set(),
             'maximumScore': 0
              }
+
+    def show_I():
+        show_matrix(V['I'], V['scores'])
+    V['show'] = show_I
 
     def set_display():
         V['I'] = [[0,] * N_STATES for pos in V['statesOfPos']]
         for pos, states in enumerate(V['statesOfPos']):
             for state in states:
-                V['I'][pos][state] = 1
+                V['I'][pos][state] = 1 if state in V['matchableStates'] else -1
+        show_I()
     
     def set_states_of_pos(viable):
         V['statesOfPos'] = []
@@ -37,6 +50,7 @@ def max_score_dp(scores, viable):
     def compute_matchable_states():
         for stateSet in V['statesOfPos']:
             V['matchableStates'] = V['matchableStates'].union(stateSet)
+        V['unMatchableStates'] = set(range(N_STATES)).difference(V['matchableStates'])
 
     def compute_scores(scores):
         ## A state can only match with one postion
@@ -46,14 +60,26 @@ def max_score_dp(scores, viable):
         V['scores'] = scores[:len(V['matchableStates'])]
         V['maximumScore'] = sum(V['scores'])
         print(f"matchable states { len(V['matchableStates']) }: {  V['matchableStates']  }")
+        V['scores'] += [0] * len(V['unMatchableStates'])
         #print(V['scores'])
         #print(V['maximumScore'])
 
+    def set_lowest_positions():
+        revPos = 1
+        for pos in V['unMatchableStates']:
+            ## Mutate Positions stateSet matrix
+            V['statesOfPos'][-revPos] = {pos}          # Each Lower position has a single unmatchable state as a viable state
+            revPos += 1
+
+    
+
     def set_viable_states(viable, scores):
         set_states_of_pos(viable)
-        set_display()
+        #set_display()
         compute_matchable_states()
         compute_scores(scores)
+        set_lowest_positions()
+        set_display()
     V['set_viable'] = set_viable_states
             
 
@@ -77,8 +103,10 @@ def max_score_dp(scores, viable):
     ## Initialize the used state matrix u
     def compute_U():
         U['display'] = [(['',] * state) + ['u',] + (['',] * (N_STATES - state - 1)) for state in U['stateOf']]
-    def print_u():
-        [print(row) for row in U['display']]
+    
+    def show_U():
+        show_matrix(U['display'], V['scores'])
+    U['show'] = show_U
     
     ## U position of state 
     def compute_U_posOf():
@@ -167,6 +195,12 @@ def max_score_dp(scores, viable):
     V['set_viable'](viable, scores)             #  Initialize Case
     U['set_state'](tuple(range(N_STATES)))      #  Initialize State
 
+    [print(f'{pos}: {states}') for pos, states in enumerate(V["statesOfPos"]) ]
+    print(V['scores'])
+    print(V['allScores'])
+    print(V['matchableStates'])
+    print(V['unMatchableStates'])
+
     n = 0
     
     if U['unMatched']:
@@ -183,6 +217,7 @@ def max_score_dp(scores, viable):
 
     print('\nfinalScore')
     print(f'{res} states: {finalState}')
+    U['show']()
     
     print(f'nSwaps: {U["nSwaps"]}')
     print(f'maxPosible {V["maximumScore"]}')
@@ -217,7 +252,7 @@ if __name__ == "__main__":
                         [1,2,3,5,7,10], #2 All MATCHED !!!
                         [4,7]]          #
 
-    #max_score_dp(scores0, viableContracts0)
+    max_score_dp(scores0, viableContracts0)
 
     ## CASE 1
     print()
