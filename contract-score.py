@@ -119,7 +119,7 @@ def max_score_dp(scores, viable):
     ## Additional Interface Functions
     def compute_total_score():
         U['totalScore'] = 0
-        for score, usedState, viablestates in zip(scores, U['stateOf'], V['I']):
+        for score, usedState, viablestates in zip(V['scores'], U['stateOf'], V['I']):
             U['totalScore'] += score * viablestates[usedState]
         
     def compute_unmatched_positions():
